@@ -1,0 +1,31 @@
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+.content-wrapper {
+  display: flex;
+  height: 88vh;
+}
+
+.header {
+  background-color: #686868;
+  height: 7vh;
+}
+
+.navigation {
+  width: 15%;
+  background-color: aquamarine;
+}
+
+.content {
+  width: 85%;
+  background-color: crimson;
+}
+
+.footer {
+  height: 5vh;
+  background-color: darkorange;
+}
