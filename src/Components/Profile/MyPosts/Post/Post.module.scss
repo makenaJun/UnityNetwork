@@ -1,0 +1,11 @@
+$avatarSize: 70px;
+.avatar{
+  width: $avatarSize;
+  height: $avatarSize;
+  overflow: hidden;
+  border-radius: 50%;
+  img{
+    height: 100%;
+    width: 100%;
+  }
+}
