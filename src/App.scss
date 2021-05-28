@@ -5,27 +5,12 @@
   margin: 0 auto;
 }
 
-.content-wrapper {
+.body-app-wrapper {
   display: flex;
-  height: 88vh;
-}
-
-.header {
-  background-color: #686868;
-  height: 7vh;
-}
-
-.navigation {
-  width: 15%;
-  background-color: aquamarine;
+  min-height: 88vh;
 }
 
 .content {
   width: 85%;
   background-color: crimson;
-}
-
-.footer {
-  height: 5vh;
-  background-color: darkorange;
 }
