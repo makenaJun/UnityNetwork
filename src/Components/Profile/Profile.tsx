@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {MyPosts} from "./MyPosts/Myposts";
+import {MyPosts} from './MyPosts/Myposts';
 
 export const Profile: FC = () => {
     return (

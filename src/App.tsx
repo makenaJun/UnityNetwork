@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.scss';
-import {Footer} from "./Components/Footer/Footer";
-import {Header} from "./Components/Header/Header";
-import {Sidebar} from "./Components/Sidebar/Sidebar";
-import {Profile} from "./Components/Profile/Profile";
+import {Header} from './Components/Header/Header';
+import {Footer} from './Components/Footer/Footer';
+import {Sidebar} from './Components/Sidebar/Sidebar';
+import {Profile} from './Components/Profile/Profile';
+
 
 function App() {
     return (
