@@ -1,14 +1,11 @@
 import React, {FC} from 'react';
 import {MyPosts} from './MyPosts/Myposts';
+import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 
 export const Profile: FC = () => {
     return (
         <div>
-            <div>Profile</div>
-            <div>
-                <div>Avatar</div>
-                <div>Description</div>
-            </div>
+            <ProfileInfo/>
             <MyPosts/>
         </div>
     )

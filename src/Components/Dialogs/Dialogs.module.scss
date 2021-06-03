@@ -1,0 +1,18 @@
+.wrapperDialogs {
+  display: flex;
+  justify-content: space-around;
+}
+
+.dialogsItem {
+  width: 25%;
+  border: 1px dashed #ccc;
+  background-color: #fff;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.messagesItem {
+  width: 74%;
+  border: 1px dashed #ccc;
+  background-color: #fff;
+}

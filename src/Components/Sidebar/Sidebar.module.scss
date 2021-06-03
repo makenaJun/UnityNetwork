@@ -1,4 +1,44 @@
 .sidebar {
-  width: 15%;
-  background-color: aquamarine;
+  width: 15vw;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #b0fff6;
+  padding: 10px 20px;
+  box-sizing: border-box;
+
+  a {
+    text-decoration: none;
+    color: #191919;
+    font-weight: 500;
+    margin: 3px 0;
+
+    &.active {
+      color: #00bba6;
+    }
+
+    &:hover {
+      color: #019785;
+    }
+  }
+}
+
+.profileLink {
+  &::before {
+    content: url("../../assets/icon/navigation/profile.png");
+    margin-right: 5px;
+  }
+}
+
+.messageLink {
+  &::before {
+    content: url("../../assets/icon/navigation/message.png");
+    margin-right: 5px;
+  }
+}
+
+.developersLink {
+  &::before {
+    content: url("../../assets/icon/navigation/web-development.png");
+    margin-right: 5px;
+  }
 }
