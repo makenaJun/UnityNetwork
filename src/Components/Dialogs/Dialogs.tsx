@@ -1,26 +1,32 @@
 import React, {FC} from 'react';
-import {NavLink} from 'react-router-dom';
 import styles from './Dialogs.module.scss';
 import {DialogItem} from './DialogItem/DialogItem';
 import {MessageItem} from './MessageItem/MessageItem';
 
 export const Dialogs: FC = () => {
 
+    const dialogsData = [
+        {id: '1', name: 'Igor'},
+        {id: '2', name: 'Marina'},
+        {id: '3', name: 'Sasha'},
+        {id: '4', name: 'Maxim'},
+        {id: '5', name: 'Andrei'}
+    ]
+    const messagesData = [
+        {id: '1', message: 'Hello'},
+        {id: '2', message: 'How are you?'},
+        {id: '3', message: 'My first message))'},
+        {id: '4', message: 'Yo yo yo'}
+    ]
+
     return (
         <div>
             <div className={styles.wrapperDialogs}>
                 <div className={styles.dialogsItem}>
-                    <DialogItem userId={'1'} userName={'Igor'}/>
-                    <DialogItem userId={'2'} userName={'Marina'}/>
-                    <DialogItem userId={'3'} userName={'Sasha'}/>
-                    <DialogItem userId={'4'} userName={'Maxim'}/>
-                    <DialogItem userId={'5'} userName={'Andrei'}/>
+                    {dialogsData.map(user => <DialogItem key={user.id} userId={user.id} userName={user.name}/>)}
                 </div>
                 <div className={styles.messagesItem}>
-                    <MessageItem message={'Hello'}/>
-                    <MessageItem message={'How are you?'}/>
-                    <MessageItem message={'My first message))'}/>
-                    <MessageItem message={'Yo yo yo'}/>
+                    {messagesData.map(message => (<MessageItem key={message.id} message={message.message}/>))}
                 </div>
 
             </div>

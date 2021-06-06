@@ -3,7 +3,8 @@ import styles from './Post.module.scss';
 import heart from '../../../../assets/icon/heart.png';
 
 type PropsType = {
-    message: string,
+    id: string
+    message: string
     likesCount: number
 }
 
