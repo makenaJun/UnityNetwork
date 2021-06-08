@@ -2,22 +2,16 @@ import React, {FC} from 'react';
 import styles from './Dialogs.module.scss';
 import {DialogItem} from './DialogItem/DialogItem';
 import {MessageItem} from './MessageItem/MessageItem';
+import {DialogType, MessageType} from '../../index';
 
-export const Dialogs: FC = () => {
+type PropsType = {
+    dialogsData: Array<DialogType>
+    messagesData: Array<MessageType>
+}
 
-    const dialogsData = [
-        {id: '1', name: 'Igor'},
-        {id: '2', name: 'Marina'},
-        {id: '3', name: 'Sasha'},
-        {id: '4', name: 'Maxim'},
-        {id: '5', name: 'Andrei'}
-    ]
-    const messagesData = [
-        {id: '1', message: 'Hello'},
-        {id: '2', message: 'How are you?'},
-        {id: '3', message: 'My first message))'},
-        {id: '4', message: 'Yo yo yo'}
-    ]
+export const Dialogs: FC<PropsType> = (props) => {
+
+    const {dialogsData, messagesData} = props;
 
     return (
         <div>
