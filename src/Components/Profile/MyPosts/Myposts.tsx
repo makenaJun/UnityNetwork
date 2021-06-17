@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {AddPostForm} from './AddPostForm/AddPostForm';
 import {Post} from './Post/Post';
-import {PostType} from '../../../index';
+import {PostType} from '../../../redux/state';
 
 type PropsType = {
     postsData: Array<PostType>
