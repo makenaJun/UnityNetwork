@@ -10,9 +10,11 @@ import {StateType} from './redux/state';
 
 type PropsType = {
     state: StateType
+    addPost: (newPostText: string) => void
 }
 
 const App: FC<PropsType> = (props) => {
+    const {addPost} = props;
     const {profilePage, dialogsPages} = props.state;
 
     return (
@@ -22,7 +24,7 @@ const App: FC<PropsType> = (props) => {
                 <div className="body-app-wrapper">
                     <Sidebar/>
                     <div className="content">
-                        <Route path={'/profile'} render={() => <Profile profilePage={profilePage}/>}/>
+                        <Route path={'/profile'} render={() => <Profile profilePage={profilePage} addPost={addPost}/>}/>
                         <Route path={'/dialogs'} render={() => <Dialogs dialogsPages={dialogsPages}/>}/>
                     </div>
                 </div>
