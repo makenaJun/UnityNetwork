@@ -5,11 +5,13 @@ import {PostType} from '../../../redux/state';
 
 type PropsType = {
     postsData: Array<PostType>
-    addPost: (newPostText: string) => void
+    newPostText: string
+    addPost: () => void
+    changeNewPostText: (newPostText:string) => void
 }
 
 export const MyPosts: FC<PropsType> = (props) => {
-    const {postsData, addPost} = props;
+    const {postsData, newPostText,  addPost, changeNewPostText} = props;
 
     const postsElements = postsData.map(post => (
         <Post key={post.id} id={post.id} message={post.message} likesCount={post.likesCount}/>))
@@ -17,7 +19,7 @@ export const MyPosts: FC<PropsType> = (props) => {
     return (
         <div>
             <div>My Posts</div>
-            <AddPostForm addPost={addPost}/>
+            <AddPostForm addPost={addPost} newPostText={newPostText} changeNewPostText={changeNewPostText}/>
             {postsElements}
         </div>
     )

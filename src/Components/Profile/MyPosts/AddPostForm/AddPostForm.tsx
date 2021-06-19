@@ -1,26 +1,22 @@
-import React, {createRef, FC, LegacyRef} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 
 type PropsType = {
-    addPost: (newPostText: string) => void
+    newPostText: string
+    addPost: () => void
+    changeNewPostText: (newPostText:string) => void
 }
 
 export const AddPostForm: FC<PropsType> = (props) => {
-    const {addPost} = props;
+    const {newPostText, addPost, changeNewPostText} = props;
 
-    const newPostElement: LegacyRef<HTMLTextAreaElement> = createRef();
-
-    const addPostText = () => {
-        if (newPostElement.current?.value) {
-            addPost(newPostElement.current?.value);
-            newPostElement.current.value = '';
-        }
+    const postTextChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        changeNewPostText(event.currentTarget.value);
     }
-
 
     return (
         <div>
-            <textarea ref={newPostElement}/>
-            <button onClick={addPostText}>Add post
+            <textarea value={newPostText} onChange={postTextChangeHandler}/>
+            <button onClick={addPost}>Add post
             </button>
         </div>
     )
