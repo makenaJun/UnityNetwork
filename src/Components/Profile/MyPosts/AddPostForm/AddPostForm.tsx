@@ -14,7 +14,7 @@ export const AddPostForm: FC<PropsType> = (props) => {
         const action = changeNewPostText(NewText);
         dispatch(action);
     };
-    const addPost = () => {
+    const addPostHandler = () => {
         const action = addPostAC();
         dispatch(action);
     };
@@ -22,7 +22,7 @@ export const AddPostForm: FC<PropsType> = (props) => {
     return (
         <div>
             <textarea value={newPostText} onChange={postTextChangeHandler}/>
-            <button onClick={addPost}>Add post
+            <button onClick={addPostHandler}>Add post
             </button>
         </div>
     )

@@ -1,6 +1,7 @@
 .wrapperDialogs {
   display: flex;
   justify-content: space-around;
+  height: 71vh;
 }
 
 .dialogsItem {
@@ -13,6 +14,8 @@
 
 .messagesItem {
   width: 74%;
+  overflow: scroll;
+  height: 100%;
   border: 1px dashed #ccc;
   background-color: #fff;
 }

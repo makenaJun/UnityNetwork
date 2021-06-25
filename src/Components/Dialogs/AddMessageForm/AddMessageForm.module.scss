@@ -1,0 +1,30 @@
+.wrapper{
+  display: flex;
+  gap: 5px;
+  border: 1px dashed #ccc;
+  margin: 5px 2px;
+  padding: 10px;
+  background-color: #fff;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.entryField{
+  width: 95%;
+  resize: none;
+
+}
+.button{
+  width: 5%;
+  height: 40px;
+  border: none;
+  border-radius: 2px;
+  font-size: 15px;
+  background-color: #019785;
+  color: #ccc;
+  &:hover{
+    background-color: #00bba6;
+    color: #fff;
+    cursor: pointer;
+  }
+}

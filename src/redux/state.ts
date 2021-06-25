@@ -18,6 +18,7 @@ export type ProfilePageType = {
 export type DialogsPagesType = {
     dialogsData: Array<DialogType>
     messagesData: Array<MessageType>
+    newMessageText: string
 }
 export type StateType = {
     profilePage: ProfilePageType
@@ -37,6 +38,8 @@ export type ActionType = {
 
 const ADD_POST = 'ADD_POST';
 const CHANGE_NEW_POST_TEXT = 'CHANGE_NEW_POST_TEXT';
+const ADD_MESSAGE = 'ADD_MESSAGE';
+const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE_NEW_MESSAGE_TEXT';
 
 export const store: StoreType = {
     _state: {
@@ -63,7 +66,8 @@ export const store: StoreType = {
                 {id: '3', message: 'My first message))'},
                 {id: '4', message: 'Yo yo yo'},
                 {id: '5', message: 'Hello man!'}
-            ]
+            ],
+            newMessageText: ''
         }
     },
     _callSubscriber(state: StateType) {
@@ -88,10 +92,30 @@ export const store: StoreType = {
         } else if (action.type === CHANGE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.payload.newPostText;
             this._callSubscriber(this._state);
+        } else if (action.type === ADD_MESSAGE) {
+            const newMessage: MessageType = {
+                id: String(this._state.dialogsPages.messagesData.length + 1),
+                message: this._state.dialogsPages.newMessageText
+            }
+            this._state.dialogsPages.messagesData.push(newMessage);
+            this._state.dialogsPages.newMessageText = '';
+            this._callSubscriber(this._state);
+        } else if (action.type === CHANGE_NEW_MESSAGE_TEXT) {
+            debugger
+            this._state.dialogsPages.newMessageText = action.payload.newMessageText;
+            this._callSubscriber(this._state);
         }
     }
 }
 
 
 export const addPostAC = (): ActionType => ({type: ADD_POST});
-export const changeNewPostText = (newPostText: string): ActionType => ({type: CHANGE_NEW_POST_TEXT,payload: {newPostText}});
+export const changeNewPostText = (newPostText: string): ActionType => ({
+    type: CHANGE_NEW_POST_TEXT,
+    payload: {newPostText}
+});
+export const addMessageAC = () => ({type: ADD_MESSAGE});
+export const newMessageTextAC = (newMessageText: string) => ({
+    type: CHANGE_NEW_MESSAGE_TEXT,
+    payload: {newMessageText}
+});

@@ -26,7 +26,8 @@ const App: FC<PropsType> = (props) => {
                     <div className="content">
                         <Route path={'/profile'}
                                render={() => <Profile profilePage={profilePage} dispatch={dispatch}/>}/>
-                        <Route path={'/dialogs'} render={() => <Dialogs dialogsPages={dialogsPages}/>}/>
+                        <Route path={'/dialogs'}
+                               render={() => <Dialogs dialogsPages={dialogsPages} dispatch={dispatch}/>}/>
                     </div>
                 </div>
                 <Footer/>
