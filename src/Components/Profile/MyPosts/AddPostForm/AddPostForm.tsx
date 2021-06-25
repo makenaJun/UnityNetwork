@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC} from 'react';
-import {ActionType} from '../../../../redux/state';
+import {ActionType, addPostAC, changeNewPostText} from '../../../../redux/state';
 
 type PropsType = {
     newPostText: string
@@ -10,19 +10,12 @@ export const AddPostForm: FC<PropsType> = (props) => {
     const {newPostText, dispatch} = props;
 
     const postTextChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        const action: ActionType = {
-            type: 'CHANGE_NEW_POST_TEXT',
-            payload: {
-                newPostText: event.currentTarget.value
-            }
-        }
+        const NewText = event.currentTarget.value;
+        const action = changeNewPostText(NewText);
         dispatch(action);
     };
     const addPost = () => {
-        const action: ActionType = {
-            type: 'ADD_POST',
-            payload: {}
-        }
+        const action = addPostAC();
         dispatch(action);
     };
 
