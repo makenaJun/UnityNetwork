@@ -6,16 +6,15 @@ import {Sidebar} from './Components/Sidebar/Sidebar';
 import {Profile} from './Components/Profile/Profile';
 import {Dialogs} from './Components/Dialogs/Dialogs';
 import {BrowserRouter, Route} from 'react-router-dom';
-import {StateType} from './redux/state';
+import {ActionType, StateType} from './redux/state';
 
 type PropsType = {
     state: StateType
-    addPost: () => void
-    changeNewPostText: (newPostText: string) => void
+    dispatch: (action: ActionType) => void
 }
 
 const App: FC<PropsType> = (props) => {
-    const {addPost, changeNewPostText} = props;
+    const {dispatch} = props;
     const {profilePage, dialogsPages} = props.state;
 
     return (
@@ -25,8 +24,8 @@ const App: FC<PropsType> = (props) => {
                 <div className="body-app-wrapper">
                     <Sidebar/>
                     <div className="content">
-                        <Route path={'/profile'} render={() => <Profile profilePage={profilePage} addPost={addPost}
-                                                                        changeNewPostText={changeNewPostText}/>}/>
+                        <Route path={'/profile'}
+                               render={() => <Profile profilePage={profilePage} dispatch={dispatch}/>}/>
                         <Route path={'/dialogs'} render={() => <Dialogs dialogsPages={dialogsPages}/>}/>
                     </div>
                 </div>

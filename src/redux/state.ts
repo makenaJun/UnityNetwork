@@ -74,11 +74,15 @@ export type StateType = {
 
 export type StoreType = {
     _state: StateType
-    addPost: () => void
     _callSubscriber: (state: StateType) => void
-    changeNewPostText: (newPostText: string) => void
     subscribe: (observer: (state: StateType) => void) => void
     getState: () => StateType
+    dispatch: (action: ActionType) => void
+}
+
+export type ActionType = {
+    type: string
+    payload: any
 }
 
 export const store: StoreType = {
@@ -109,27 +113,28 @@ export const store: StoreType = {
             ]
         }
     },
-    getState() {
-        return this._state;
-    },
     _callSubscriber(state: StateType) {
         console.log('State changed')
     },
-    addPost()  {
-        const newPost: PostType = {
-            id: String(this._state.profilePage.postsData.length + 1),
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        }
-        this._state.profilePage.postsData.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this._state);
-    },
-    changeNewPostText(newPostText: string) {
-        this._state.profilePage.newPostText = newPostText;
-        this._callSubscriber(this._state);
-    },
     subscribe(observer: (state: StateType) => void) {
         this._callSubscriber = observer;
+    },
+    getState() {
+        return this._state;
+    },
+    dispatch(action: ActionType) {
+        if (action.type === 'ADD_POST') {
+            const newPost: PostType = {
+                id: String(this._state.profilePage.postsData.length + 1),
+                message: this._state.profilePage.newPostText,
+                likesCount: 0
+            }
+            this._state.profilePage.postsData.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(this._state);
+        } else if (action.type === 'CHANGE_NEW_POST_TEXT') {
+            this._state.profilePage.newPostText = action.payload.newPostText;
+            this._callSubscriber(this._state);
+        }
     }
 }
