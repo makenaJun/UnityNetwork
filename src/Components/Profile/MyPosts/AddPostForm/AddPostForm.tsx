@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC} from 'react';
-import {ActionType, addPostAC, changeNewPostText} from '../../../../redux/state';
+import {ActionType, addPostAC, changeNewPostTextAC} from '../../../../redux/state';
 
 type PropsType = {
     newPostText: string
@@ -11,7 +11,7 @@ export const AddPostForm: FC<PropsType> = (props) => {
 
     const postTextChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const NewText = event.currentTarget.value;
-        const action = changeNewPostText(NewText);
+        const action = changeNewPostTextAC(NewText);
         dispatch(action);
     };
     const addPostHandler = () => {
@@ -21,7 +21,7 @@ export const AddPostForm: FC<PropsType> = (props) => {
 
     return (
         <div>
-            <textarea value={newPostText} onChange={postTextChangeHandler}/>
+            <textarea value={newPostText} onChange={postTextChangeHandler} />
             <button onClick={addPostHandler}>Add post
             </button>
         </div>

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC} from 'react';
+import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
 import {ActionType, addMessageAC, newMessageTextAC} from '../../../redux/state';
 import styles from './AddMessageForm.module.scss'
 
@@ -10,20 +10,25 @@ type PropsType = {
 export const AddMessageForm: FC<PropsType> = (props) => {
     const {newMessageText, dispatch} = props;
 
-    const messageTextChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const changeMessageTextHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const newMessageText = event.currentTarget.value;
         dispatch(newMessageTextAC(newMessageText))
     }
 
-    const addMessageHandler = () => {
+    const sendMessageHandler = () => {
         dispatch(addMessageAC())
+    }
+    const ctrlEnterSendMessageHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (event.key === 'Enter' && event.ctrlKey) {
+            sendMessageHandler()
+        }
     }
 
     return (
         <div className={styles.wrapper}>
-            <textarea className={styles.entryField} rows={5} onChange={messageTextChangeHandler}
-                      value={newMessageText}/>
-            <button className={styles.button} onClick={addMessageHandler}>Send</button>
+            <textarea className={styles.entryField} onChange={changeMessageTextHandler}
+                      value={newMessageText} placeholder={'Enter your message'} onKeyDown={ctrlEnterSendMessageHandler}/>
+            <button className={styles.button} onClick={sendMessageHandler}>Send</button>
         </div>
     )
 }

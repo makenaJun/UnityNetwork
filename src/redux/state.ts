@@ -31,10 +31,12 @@ export type StoreType = {
     getState: () => StateType
     dispatch: (action: ActionType) => void
 }
-export type ActionType = {
-    type: string
-    payload?: any
-}
+export type ActionType =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof changeNewPostTextAC>
+    | ReturnType<typeof addMessageAC>
+    | ReturnType<typeof newMessageTextAC>
+
 
 const ADD_POST = 'ADD_POST';
 const CHANGE_NEW_POST_TEXT = 'CHANGE_NEW_POST_TEXT';
@@ -70,16 +72,16 @@ export const store: StoreType = {
             newMessageText: ''
         }
     },
-    _callSubscriber(state: StateType) {
+    _callSubscriber(state) {
         console.log('State changed')
     },
-    subscribe(observer: (state: StateType) => void) {
+    subscribe(observer) {
         this._callSubscriber = observer;
     },
     getState() {
         return this._state;
     },
-    dispatch(action: ActionType) {
+    dispatch(action) {
         if (action.type === ADD_POST) {
             const newPost: PostType = {
                 id: String(this._state.profilePage.postsData.length + 1),
@@ -109,13 +111,13 @@ export const store: StoreType = {
 }
 
 
-export const addPostAC = (): ActionType => ({type: ADD_POST});
-export const changeNewPostText = (newPostText: string): ActionType => ({
+export const addPostAC = () => ({type: ADD_POST} as const);
+export const changeNewPostTextAC = (newPostText: string) => ({
     type: CHANGE_NEW_POST_TEXT,
     payload: {newPostText}
-});
-export const addMessageAC = () => ({type: ADD_MESSAGE});
+} as const);
+export const addMessageAC = () => ({type: ADD_MESSAGE} as const);
 export const newMessageTextAC = (newMessageText: string) => ({
     type: CHANGE_NEW_MESSAGE_TEXT,
     payload: {newMessageText}
-});
+} as const);
