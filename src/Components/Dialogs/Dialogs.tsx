@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 import styles from './Dialogs.module.scss';
 import {DialogItem} from './DialogItem/DialogItem';
 import {MessageItem} from './MessageItem/MessageItem';
-import {ActionType, DialogsPagesType} from '../../redux/state';
 import {AddMessageForm} from './AddMessageForm/AddMessageForm';
+import {ActionType, DialogsPagesType} from '../../redux/dialogsReducer';
 
 type PropsType = {
     dialogsPages: DialogsPagesType

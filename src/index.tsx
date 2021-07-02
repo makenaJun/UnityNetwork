@@ -1,11 +1,11 @@
 import React from 'react';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
-import {StateType, store} from './redux/state';
 import ReactDOM from 'react-dom';
 import App from './App';
+import store, {AppStateType} from './redux/store';
 
-export const rerenderEntireTree = (state: StateType) => {
+export const rerenderEntireTree = (state: AppStateType) => {
     ReactDOM.render(
         <React.StrictMode>
             <App state={state}
@@ -15,7 +15,9 @@ export const rerenderEntireTree = (state: StateType) => {
         document.getElementById('root')
     );
 }
-store.subscribe(rerenderEntireTree);
+
+store.subscribe(() => rerenderEntireTree(store.getState()));
+
 
 rerenderEntireTree(store.getState())
 

@@ -1,7 +1,6 @@
 import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
-import {ActionType} from '../../../redux/state';
 import styles from './AddMessageForm.module.scss'
-import {addMessageAC, newMessageTextAC} from '../../../redux/dialogsReducer';
+import {ActionType, addMessageAC, newMessageTextAC} from '../../../redux/dialogsReducer';
 
 type PropsType = {
     newMessageText: string

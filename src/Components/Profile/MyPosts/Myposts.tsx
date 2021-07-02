@@ -1,12 +1,12 @@
 import React, {FC} from 'react';
 import {AddPostForm} from './AddPostForm/AddPostForm';
 import {Post} from './Post/Post';
-import {ActionType, PostType} from '../../../redux/state';
+import {PostType, ProfileActionType} from '../../../redux/profileReducer';
 
 type PropsType = {
     postsData: Array<PostType>
     newPostText: string
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ProfileActionType) => void
 }
 
 export const MyPosts: FC<PropsType> = (props) => {
