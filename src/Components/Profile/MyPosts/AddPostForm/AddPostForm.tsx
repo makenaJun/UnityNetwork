@@ -1,5 +1,6 @@
 import React, {ChangeEvent, FC} from 'react';
-import {ActionType, addPostAC, changeNewPostTextAC} from '../../../../redux/state';
+import {ActionType} from '../../../../redux/state';
+import {addPostAC, changeNewPostTextAC} from '../../../../redux/profileReducer';
 
 type PropsType = {
     newPostText: string
@@ -21,7 +22,7 @@ export const AddPostForm: FC<PropsType> = (props) => {
 
     return (
         <div>
-            <textarea value={newPostText} onChange={postTextChangeHandler} />
+            <textarea value={newPostText} onChange={postTextChangeHandler}/>
             <button onClick={addPostHandler}>Add post
             </button>
         </div>

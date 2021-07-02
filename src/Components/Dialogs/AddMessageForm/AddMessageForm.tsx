@@ -1,6 +1,7 @@
 import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
-import {ActionType, addMessageAC, newMessageTextAC} from '../../../redux/state';
+import {ActionType} from '../../../redux/state';
 import styles from './AddMessageForm.module.scss'
+import {addMessageAC, newMessageTextAC} from '../../../redux/dialogsReducer';
 
 type PropsType = {
     newMessageText: string
@@ -27,7 +28,8 @@ export const AddMessageForm: FC<PropsType> = (props) => {
     return (
         <div className={styles.wrapper}>
             <textarea className={styles.entryField} onChange={changeMessageTextHandler}
-                      value={newMessageText} placeholder={'Enter your message'} onKeyDown={ctrlEnterSendMessageHandler}/>
+                      value={newMessageText} placeholder={'Enter your message'}
+                      onKeyDown={ctrlEnterSendMessageHandler}/>
             <button className={styles.button} onClick={sendMessageHandler}>Send</button>
         </div>
     )
