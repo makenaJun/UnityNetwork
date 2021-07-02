@@ -1,22 +1,20 @@
 import React, {ChangeEvent, FC} from 'react';
-import {addPostAC, changeNewPostTextAC, ProfileActionType} from '../../../../redux/profileReducer';
 
 type PropsType = {
     newPostText: string
-    dispatch: (action: ProfileActionType) => void
+    changeNewPostText: (newText: string) => void
+    addPost: () => void
 }
 
 export const AddPostForm: FC<PropsType> = (props) => {
-    const {newPostText, dispatch} = props;
+    const {newPostText, changeNewPostText, addPost} = props;
 
     const postTextChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const NewText = event.currentTarget.value;
-        const action = changeNewPostTextAC(NewText);
-        dispatch(action);
+        changeNewPostText(NewText)
     };
     const addPostHandler = () => {
-        const action = addPostAC();
-        dispatch(action);
+        addPost()
     };
 
     return (

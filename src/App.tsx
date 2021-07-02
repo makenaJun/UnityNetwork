@@ -4,9 +4,9 @@ import {Header} from './Components/Header/Header';
 import {Footer} from './Components/Footer/Footer';
 import {Sidebar} from './Components/Sidebar/Sidebar';
 import {Profile} from './Components/Profile/Profile';
-import {Dialogs} from './Components/Dialogs/Dialogs';
 import {BrowserRouter, Route} from 'react-router-dom';
 import {ActionsTypes, AppStateType} from './redux/store';
+import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
 
 type PropsType = {
     state: AppStateType
@@ -27,7 +27,7 @@ const App: FC<PropsType> = (props) => {
                         <Route path={'/profile'}
                                render={() => <Profile profilePage={profilePage} dispatch={dispatch}/>}/>
                         <Route path={'/dialogs'}
-                               render={() => <Dialogs dialogsPages={dialogsPage} dispatch={dispatch}/>}/>
+                               render={() => <DialogsContainer dialogsPage={dialogsPage} dispatch={dispatch}/>}/>
                     </div>
                 </div>
                 <Footer/>

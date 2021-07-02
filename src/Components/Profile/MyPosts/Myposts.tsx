@@ -1,16 +1,17 @@
 import React, {FC} from 'react';
 import {AddPostForm} from './AddPostForm/AddPostForm';
 import {Post} from './Post/Post';
-import {PostType, ProfileActionType} from '../../../redux/profileReducer';
+import {PostType} from '../../../redux/profileReducer';
 
 type PropsType = {
     postsData: Array<PostType>
     newPostText: string
-    dispatch: (action: ProfileActionType) => void
+    changeNewPostText: (newText: string) => void
+    addPost: () => void
 }
 
 export const MyPosts: FC<PropsType> = (props) => {
-    const {postsData, newPostText, dispatch} = props;
+    const {postsData, newPostText, changeNewPostText, addPost} = props;
 
     const postsElements = postsData.map(post => (
         <Post key={post.id} id={post.id} message={post.message} likesCount={post.likesCount}/>))
@@ -18,7 +19,7 @@ export const MyPosts: FC<PropsType> = (props) => {
     return (
         <div>
             <div>My Posts</div>
-            <AddPostForm newPostText={newPostText} dispatch={dispatch}/>
+            <AddPostForm newPostText={newPostText} addPost={addPost} changeNewPostText={changeNewPostText} />
             {postsElements}
         </div>
     )

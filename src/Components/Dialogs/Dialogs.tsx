@@ -3,16 +3,17 @@ import styles from './Dialogs.module.scss';
 import {DialogItem} from './DialogItem/DialogItem';
 import {MessageItem} from './MessageItem/MessageItem';
 import {AddMessageForm} from './AddMessageForm/AddMessageForm';
-import {ActionType, DialogsPagesType} from '../../redux/dialogsReducer';
+import {DialogsPagesType} from '../../redux/dialogsReducer';
 
 type PropsType = {
-    dialogsPages: DialogsPagesType
-    dispatch: (action: ActionType) => void
+    dialogsPage: DialogsPagesType
+    changeMessageText: (newText: string) => void
+    sendMessage: () => void
 }
 
 export const Dialogs: FC<PropsType> = (props) => {
-    const {dispatch} = props;
-    const {dialogsData, messagesData, newMessageText} = props.dialogsPages;
+    const {changeMessageText, sendMessage} = props;
+    const {dialogsData, messagesData, newMessageText} = props.dialogsPage;
 
     return (
         <div>
@@ -24,7 +25,7 @@ export const Dialogs: FC<PropsType> = (props) => {
                     {messagesData.map(message => (<MessageItem key={message.id} message={message.message}/>))}
                 </div>
             </div>
-            <AddMessageForm dispatch={dispatch} newMessageText={newMessageText}/>
+            <AddMessageForm changeMessageText={changeMessageText} sendMessage={sendMessage} newMessageText={newMessageText}/>
         </div>
     )
 }

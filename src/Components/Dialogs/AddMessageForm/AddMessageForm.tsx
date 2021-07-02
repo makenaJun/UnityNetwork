@@ -1,28 +1,27 @@
 import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
 import styles from './AddMessageForm.module.scss'
-import {ActionType, addMessageAC, newMessageTextAC} from '../../../redux/dialogsReducer';
 
 type PropsType = {
     newMessageText: string
-    dispatch: (action: ActionType) => void
+    changeMessageText: (newText: string) => void
+    sendMessage: () => void
 }
 
 export const AddMessageForm: FC<PropsType> = (props) => {
-    const {newMessageText, dispatch} = props;
+    const {newMessageText, changeMessageText, sendMessage} = props;
 
     const changeMessageTextHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const newMessageText = event.currentTarget.value;
-        dispatch(newMessageTextAC(newMessageText))
-    }
-
+        changeMessageText(newMessageText);
+    };
     const sendMessageHandler = () => {
-        dispatch(addMessageAC())
-    }
+        sendMessage()
+    };
     const ctrlEnterSendMessageHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.key === 'Enter' && event.ctrlKey) {
             sendMessageHandler()
         }
-    }
+    };
 
     return (
         <div className={styles.wrapper}>
