@@ -5,7 +5,6 @@ import {Footer} from './Components/Footer/Footer';
 import {Sidebar} from './Components/Sidebar/Sidebar';
 import {Profile} from './Components/Profile/Profile';
 import {BrowserRouter, Route} from 'react-router-dom';
-import {ActionsTypes, AppStateType} from './redux/store';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
 
 
