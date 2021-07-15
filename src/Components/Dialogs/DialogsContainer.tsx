@@ -21,6 +21,8 @@ const DialogsContainer: FC<PropsType> = (props) => {
         <Dialogs dialogsPage={dialogsPage} changeMessageText={changeMessageText} sendMessage={sendMessage}/>
     )
 }
+
+
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage
@@ -28,7 +30,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
-        sendMessage: () => dispatch(addMessageAC()),
+        sendMessage: () => (dispatch(addMessageAC())),
         changeMessageText: (newText: string) => dispatch(newMessageTextAC(newText))
     }
 }

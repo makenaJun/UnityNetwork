@@ -1,0 +1,46 @@
+$avatarSize: 70px;
+
+.wrapper {
+  display: flex;
+  margin: 0 10px 10px 0;
+  border: 1px dashed #ccc;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.leftPart {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-right: 1px dashed #ccc;
+  padding: 10px;
+
+  .avatar {
+    width: $avatarSize;
+    height: $avatarSize;
+    overflow: hidden;
+    border-radius: 100%;
+
+    & img {
+      width: 100%;
+    }
+  }
+}
+
+.rightPart {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+
+  .name {
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 0 10px;
+  }
+
+  .status {
+    color: #919191;
+    padding: 0 10px;
+  }
+}

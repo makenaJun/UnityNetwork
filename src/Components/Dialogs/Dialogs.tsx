@@ -11,7 +11,7 @@ type PropsType = {
     sendMessage: () => void
 }
 
-export const Dialogs: FC<PropsType> = (props) => {
+export const  Dialogs: FC<PropsType> = (props) => {
     const {changeMessageText, sendMessage} = props;
     const {dialogsData, messagesData, newMessageText} = props.dialogsPage;
 
