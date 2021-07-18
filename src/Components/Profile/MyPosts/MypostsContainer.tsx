@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {addPostAC, changeNewPostTextAC, PostType} from '../../../redux/profileReducer';
+import {ActionsType, addPostAC, changeNewPostTextAC, PostType} from '../../../redux/profileReducer';
 import {MyPosts} from './Myposts';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../../redux/store';
@@ -33,7 +33,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: Dispatch<ActionsType>): MapDispatchToPropsType => {
     return {
         changeNewPostText: (newText: string) => dispatch(changeNewPostTextAC(newText)),
         addPost: () => dispatch(addPostAC())

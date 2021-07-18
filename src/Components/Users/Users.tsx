@@ -2,7 +2,7 @@ import React, {FC} from 'react'
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/store';
 import {Dispatch} from 'redux';
-import {followAC, setUsersAC, unfollowAC, UserType} from '../../redux/users-reducer';
+import {ActionsType, followAC, setUsersAC, unfollowAC, UserType} from '../../redux/users-reducer';
 import styles from './Users.module.scss'
 
 type MapStateToPropsType = {
@@ -51,7 +51,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         users: state.usersPage.users
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: Dispatch<ActionsType>): MapDispatchToPropsType => {
     return {
         follow: (userId) => dispatch(followAC(userId)),
         unfollow: (userId) => dispatch(unfollowAC(userId)),

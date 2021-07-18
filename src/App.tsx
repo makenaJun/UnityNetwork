@@ -7,7 +7,7 @@ import {Profile} from './Components/Profile/Profile';
 import {BrowserRouter, Route} from 'react-router-dom';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import UsersContainer from './Components/Users/Users';
-
+import DocumentTitle from 'react-document-title';
 
 const App: FC = () => {
 
@@ -19,11 +19,11 @@ const App: FC = () => {
                     <Sidebar/>
                     <div className="content">
                         <Route path={'/profile'}
-                               render={() => <Profile />}/>
+                               render={() => <DocumentTitle title={`Profile`} children={<Profile/>}/>}/>
                         <Route path={'/dialogs'}
-                               render={() => <DialogsContainer/>}/>
+                               render={() => <DocumentTitle title={'Dialogs'} children={<DialogsContainer/>}/>}/>
                         <Route path={'/developers'}
-                               render={() => <UsersContainer/>}/>
+                               render={() => <DocumentTitle title={'Developers'} children={<UsersContainer/>}/>}/>
                     </div>
                 </div>
                 <Footer/>

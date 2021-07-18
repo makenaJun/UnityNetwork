@@ -9,11 +9,8 @@ export type MessageType = {
     id: string
     message: string
 }
-export type DialogsPagesType = {
-    dialogsData: Array<DialogType>
-    messagesData: Array<MessageType>
-    newMessageText: string
-}
+
+export type DialogsPagesType = typeof initialState;
 
 
 export type ActionType =
@@ -28,14 +25,14 @@ const initialState = {
         {id: '4', name: 'Maxim'},
         {id: '5', name: 'Andrei'},
         {id: '6', name: 'Zenia'}
-    ],
+    ] as Array<DialogType>,
     messagesData: [
         {id: '1', message: 'Hello'},
         {id: '2', message: 'How are you?'},
         {id: '3', message: 'My first message))'},
         {id: '4', message: 'Yo yo yo'},
         {id: '5', message: 'Hello man!'}
-    ],
+    ] as Array<MessageType>,
     newMessageText: ''
 }
 

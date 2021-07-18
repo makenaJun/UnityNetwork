@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {addMessageAC, DialogsPagesType, newMessageTextAC} from '../../redux/dialogsReducer';
+import {ActionType, addMessageAC, DialogsPagesType, newMessageTextAC} from '../../redux/dialogsReducer';
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/store';
@@ -28,7 +28,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         dialogsPage: state.dialogsPage
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: Dispatch<ActionType>): MapDispatchToPropsType => {
     return {
         sendMessage: () => (dispatch(addMessageAC())),
         changeMessageText: (newText: string) => dispatch(newMessageTextAC(newText))

@@ -8,11 +8,9 @@ export type UserType = {
         country: string
     }
 };
-export type UsersPageType = {
-    users: Array<UserType>
-}
+export type UsersPageType = typeof initialState;
 
-type ActionsType = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC>
+export type ActionsType = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC>
 
 const initialState = {
     users: [
@@ -37,7 +35,7 @@ const initialState = {
             status: 'I am a bos too',
             location: {city: 'Kiev', country: 'Ukraine'}
         }
-    ]
+    ] as Array<UserType>
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionsType): UsersPageType => {
