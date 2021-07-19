@@ -1,4 +1,12 @@
-import {followAC, setUsersAC, unfollowAC, UsersPageType, usersReducer, UserType} from './users-reducer';
+import {
+    followAC,
+    setCurrentPageAC, setTotalUsersCountAC,
+    setUsersAC,
+    unfollowAC,
+    UsersPageType,
+    usersReducer,
+    UserType
+} from './users-reducer';
 
 let startState: UsersPageType;
 
@@ -36,6 +44,10 @@ beforeEach(() => {
                 followed: true
             }
         ]
+        ,
+        currentPage: 1,
+        pageSize: 5,
+        totalUsersCount: 21
     }
 })
 
@@ -90,8 +102,32 @@ describe('user reducer', () => {
 
         expect(startState).not.toBe(endState);
         expect(startState.users).not.toBe(endState.users);
-        expect(endState.users.length).toBe(5)
-        expect(endState.users[3].name).toBe('Igor')
-        expect(endState.users[4].name).toBe('Masha')
+        expect(endState.users.length).toBe(2)
+        expect(endState.users[0].name).toBe('Igor')
+        expect(endState.users[1].name).toBe('Masha')
+    });
+
+    it('current page should be changed', () => {
+        const nextCurrentPage = 2;
+
+        const action = setCurrentPageAC(nextCurrentPage);
+
+        const endState = usersReducer(startState, action);
+
+        expect(startState).not.toBe(endState);
+        expect(startState.currentPage).toBe(1);
+        expect(endState.currentPage).toBe(2);
+    });
+
+    it('total count users should be installed', () => {
+        const totalUsersCount = 10487;
+
+        const action = setTotalUsersCountAC(totalUsersCount);
+
+        const endState = usersReducer(startState, action);
+
+        expect(startState).not.toBe(endState);
+        expect(startState.totalUsersCount).toBe(21);
+        expect(endState.totalUsersCount).toBe(10487);
     });
 })

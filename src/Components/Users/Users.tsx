@@ -1,53 +1,60 @@
-import React, {FC, useEffect} from 'react'
-import {connect} from 'react-redux';
-import {AppStateType} from '../../redux/store';
-import {Dispatch} from 'redux';
-import {ActionsType, followAC, setUsersAC, unfollowAC, UserType} from '../../redux/users-reducer';
-import axios from 'axios';
+import React from 'react'
+import {UserType} from '../../redux/users-reducer';
 import {User} from './User/User';
+import axios from 'axios';
+import {Paginator} from '../Paginator/Paginator';
 
 
-type MapStateToPropsType = {
+type PropsType = {
     users: Array<UserType>
-}
-type MapDispatchToPropsType = {
+    pageSize: number
+    totalUserCount: number
+    currentPage: number
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setUsers: (users: Array<UserType>) => void
+    setCurrentPage: (currentPage: number) => void
+    setTotalUsersCount: (totalCount: number) => void
 }
+type StateType = {}
 
-type PropsType = MapStateToPropsType & MapDispatchToPropsType;
+class Users extends React.Component<PropsType, StateType> {
 
-const Users: FC<PropsType> = (props) => {
-    const {users, follow, unfollow, setUsers} = props;
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(res => {
+                this.props.setUsers(res.data.items)
+                this.props.setTotalUsersCount(res.data.totalCount)
+            })
+    }
 
-    useEffect(() => {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users?page=110').then(res => {
-            setUsers(res.data.items)
-        })
-    }, [])
+    onPageChangeHandler = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(res => {
+                this.props.setUsers(res.data.items)
+            })
+    }
 
-    const usersElements = users.map(u => <User key={u.id} user={u} follow={follow} unfollow={unfollow}/>)
+    render() {
+        const usersElements = this.props.users.map(u => <User key={u.id}
+                                                              user={u}
+                                                              follow={this.props.follow}
+                                                              unfollow={this.props.unfollow}/>)
+        return (
+            <div>
+                <h2>Developers</h2>
+                <Paginator pageSize={this.props.pageSize}
+                           totalCount={this.props.totalUserCount}
+                           currentPage={this.props.currentPage}
+                           setCurrentPage={this.onPageChangeHandler}
+                />
+                {usersElements}
 
-    return (
-        <div>
-            <h2>Developers</h2>
-            {usersElements}
-        </div>
-    )
-}
-
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-    return {
-        users: state.usersPage.users
+            </div>
+        )
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch<ActionsType>): MapDispatchToPropsType => {
-    return {
-        follow: (userId) => dispatch(followAC(userId)),
-        unfollow: (userId) => dispatch(unfollowAC(userId)),
-        setUsers: (users) => dispatch(setUsersAC(users))
-    }
-}
 
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(Users);
+
+export default Users;

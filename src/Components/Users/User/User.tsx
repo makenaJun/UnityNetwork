@@ -22,7 +22,9 @@ export const User: FC<PropsType> = (props) => {
             <div className={styles.leftPart}>
                 <div className={styles.avatar}>
                     <img
-                        src={user.photos.large === null ? noAvatar : user.photos.large}/>
+                        src={user.photos.large === null ? noAvatar : user.photos.large}
+                        alt={`Avatar ${user.name}`}
+                    />
                 </div>
                 <button onClick={onClickHandler}>{user.followed ? 'Unfollow' : 'Follow'}</button>
             </div>

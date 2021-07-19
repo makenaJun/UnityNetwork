@@ -11,41 +11,18 @@ export type UserType = {
 };
 export type UsersPageType = typeof initialState;
 
-export type ActionsType = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC>
+export type ActionsType =
+    ReturnType<typeof followAC>
+    | ReturnType<typeof unfollowAC>
+    | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
 
 const initialState = {
-    users: [
-        {
-            id: 1,
-            name: 'Dmitry',
-            status: 'I am a bos',
-            photos: {
-                small: null,
-                large: null
-            },
-            followed: false,
-        },
-        {
-            id: 2,
-            name: 'Sasha',
-            status: 'I am a bos too',
-            photos: {
-                small: null,
-                large: null
-            },
-            followed: true,
-        },
-        {
-            id: 3,
-            name: 'Viktor',
-            status: 'I am a bos too',
-            photos: {
-                small: null,
-                large: null
-            },
-            followed: false,
-        }
-    ] as Array<UserType>
+    users: [] as Array<UserType>,
+    pageSize: 5,
+    currentPage: 1,
+    totalUsersCount: 0
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionsType): UsersPageType => {
@@ -66,7 +43,19 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
         case 'SET_USERS': {
             return {
                 ...state,
-                users: [...state.users, ...action.payload.users]
+                users: action.payload.users
+            }
+        }
+        case 'SET_CURRENT_PAGE': {
+            return {
+                ...state,
+                currentPage: action.payload.currentPage
+            }
+        }
+        case 'SET_TOTAL_USERS_COUNT': {
+            return {
+                ...state,
+                totalUsersCount: action.payload.totalCount
             }
         }
         default: {
@@ -79,4 +68,11 @@ export const followAC = (userId: number) => ({type: 'FOLLOW', payload: {userId}}
 
 export const unfollowAC = (userId: number) => ({type: 'UNFOLLOW', payload: {userId}} as const);
 
-export const setUsersAC = (users: Array<UserType>) => ({type: 'SET_USERS', payload: {users}} as const)
+export const setUsersAC = (users: Array<UserType>) => ({type: 'SET_USERS', payload: {users}} as const);
+
+export const setCurrentPageAC = (currentPage: number) => ({type: 'SET_CURRENT_PAGE', payload: {currentPage}} as const);
+
+export const setTotalUsersCountAC = (totalCount: number) => ({
+    type: 'SET_TOTAL_USERS_COUNT',
+    payload: {totalCount}
+} as const)

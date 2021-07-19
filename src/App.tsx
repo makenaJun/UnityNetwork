@@ -6,7 +6,7 @@ import {Sidebar} from './Components/Sidebar/Sidebar';
 import {Profile} from './Components/Profile/Profile';
 import {BrowserRouter, Route} from 'react-router-dom';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
-import UsersContainer from './Components/Users/Users';
+import UsersContainer from './Components/Users/UsersContainer';
 import DocumentTitle from 'react-document-title';
 
 
