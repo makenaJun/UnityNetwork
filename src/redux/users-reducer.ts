@@ -1,12 +1,13 @@
+export type UserPhotosType = {
+    small: string | null
+    large: string | null
+}
 export type UserType = {
-    id: string
-    followed: boolean
-    fullName: string
+    id: number
+    name: string
     status: string
-    location: {
-        city: string
-        country: string
-    }
+    photos: UserPhotosType
+    followed: boolean
 };
 export type UsersPageType = typeof initialState;
 
@@ -15,31 +16,40 @@ export type ActionsType = ReturnType<typeof followAC> | ReturnType<typeof unfoll
 const initialState = {
     users: [
         {
-            id: '1',
-            followed: false,
-            fullName: 'Dmitry',
+            id: 1,
+            name: 'Dmitry',
             status: 'I am a bos',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-            id: '2',
+            photos: {
+                small: null,
+                large: null
+            },
             followed: false,
-            fullName: 'Sasha',
-            status: 'I am a bos too',
-            location: {city: 'Moscow', country: 'Russia'}
         },
         {
-            id: '3',
-            followed: true,
-            fullName: 'Viktor',
+            id: 2,
+            name: 'Sasha',
             status: 'I am a bos too',
-            location: {city: 'Kiev', country: 'Ukraine'}
+            photos: {
+                small: null,
+                large: null
+            },
+            followed: true,
+        },
+        {
+            id: 3,
+            name: 'Viktor',
+            status: 'I am a bos too',
+            photos: {
+                small: null,
+                large: null
+            },
+            followed: false,
         }
     ] as Array<UserType>
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionsType): UsersPageType => {
-    const changeFollowed = (userId: string, followed: boolean) => {
+    const changeFollowed = (userId: number, followed: boolean) => {
         return {
             ...state,
             users: state.users.map(u => u.id === userId ? {...u, followed: followed} : u)
@@ -65,8 +75,8 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
     }
 }
 
-export const followAC = (userId: string) => ({type: 'FOLLOW', payload: {userId}} as const);
+export const followAC = (userId: number) => ({type: 'FOLLOW', payload: {userId}} as const);
 
-export const unfollowAC = (userId: string) => ({type: 'UNFOLLOW', payload: {userId}} as const);
+export const unfollowAC = (userId: number) => ({type: 'UNFOLLOW', payload: {userId}} as const);
 
 export const setUsersAC = (users: Array<UserType>) => ({type: 'SET_USERS', payload: {users}} as const)

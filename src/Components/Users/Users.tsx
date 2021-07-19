@@ -1,42 +1,33 @@
-import React, {FC} from 'react'
+import React, {FC, useEffect} from 'react'
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/store';
 import {Dispatch} from 'redux';
 import {ActionsType, followAC, setUsersAC, unfollowAC, UserType} from '../../redux/users-reducer';
-import styles from './Users.module.scss'
+import axios from 'axios';
+import {User} from './User/User';
+
 
 type MapStateToPropsType = {
     users: Array<UserType>
 }
 type MapDispatchToPropsType = {
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     setUsers: (users: Array<UserType>) => void
 }
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 const Users: FC<PropsType> = (props) => {
-    const {users, follow, unfollow} = props;
+    const {users, follow, unfollow, setUsers} = props;
 
-    const usersElements = users.map(u => {
-        const onClickHandler = () => {
-            u.followed ? unfollow(u.id) : follow(u.id);
-        }
-        return <div key={u.id} className={styles.wrapper}>
-            <div className={styles.leftPart}>
-                <div className={styles.avatar}>
-                    <img
-                        src={'https://i.pinimg.com/474x/be/2d/30/be2d307e7f0004d3b014ee1120756a93--avatar-buttons.jpg'}/>
-                </div>
-                <button onClick={onClickHandler}>{u.followed ? 'Unfollow' : 'Follow'}</button>
-            </div>
-            <div className={styles.rightPart}>
-                <div className={styles.name}>{u.fullName}</div>
-                <div className={styles.status}>{u.status}</div>
-            </div>
-        </div>
-    })
+    useEffect(() => {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users?page=110').then(res => {
+            setUsers(res.data.items)
+        })
+    }, [])
+
+    const usersElements = users.map(u => <User key={u.id} user={u} follow={follow} unfollow={unfollow}/>)
 
     return (
         <div>

@@ -6,75 +6,92 @@ beforeEach(() => {
     startState = {
         users: [
             {
-                id: '1',
-                followed: false,
-                fullName: 'Dmitry',
+                id: 1,
+                name: 'Dmitry',
                 status: 'I am a bos',
-                location: {city: 'Minsk', country: 'Belarus'}
-            },
-            {
-                id: '2',
+                photos: {
+                    small: null,
+                    large: null
+                },
                 followed: false,
-                fullName: 'Sasha',
-                status: 'I am a bos too',
-                location: {city: 'Moscow', country: 'Russia'}
             },
             {
-                id: '3',
-                followed: true,
-                fullName: 'Viktor',
+                id: 2,
+                name: 'Sasha',
                 status: 'I am a bos too',
-                location: {city: 'Kiev', country: 'Ukraine'}
+                photos: {
+                    small: null,
+                    large: null
+                },
+                followed: false
+            },
+            {
+                id: 3,
+                name: 'Viktor',
+                status: 'I am a bos too',
+                photos: {
+                    small: null,
+                    large: null
+                },
+                followed: true
             }
         ]
     }
 })
 
-test('user should be following', () => {
-    const action = followAC('2')
+describe('user reducer', () => {
+    it('user should be following', () => {
+        const action = followAC(2)
 
-    const endState = usersReducer(startState, action);
+        const endState = usersReducer(startState, action);
 
-    expect(startState).not.toBe(endState);
-    expect(startState.users[1]).not.toBe(endState.users[1]);
-    expect(endState.users[1].followed).toBeTruthy()
-})
+        expect(startState).not.toBe(endState);
+        expect(startState.users[1]).not.toBe(endState.users[1]);
+        expect(endState.users[1].followed).toBeTruthy()
+    });
 
-test('user should be unfollowing', () => {
-    const action = unfollowAC('3')
+    it('user should be unfollowing', () => {
+        const action = unfollowAC(3)
 
-    const endState = usersReducer(startState, action);
+        const endState = usersReducer(startState, action);
 
-    expect(startState).not.toBe(endState);
-    expect(startState.users[2]).not.toBe(endState.users[2]);
-    expect(endState.users[2].followed).toBeFalsy()
-})
+        expect(startState).not.toBe(endState);
+        expect(startState.users[2]).not.toBe(endState.users[2]);
+        expect(endState.users[2].followed).toBeFalsy()
+    });
 
-test('users should be set to state', () => {
-    const newUsers: Array<UserType> = [
+    it('users should be set to state', () => {
+        const newUsers: Array<UserType> = [
             {
-                id: '4',
-                followed: true,
-                fullName: 'Igor',
+                id: 4,
+                name: 'Igor',
                 status: 'I am a bos',
-                location: {city: 'Minsk', country: 'Belarus'}
+                photos: {
+                    small: null,
+                    large: null
+                },
+                followed: true
             },
             {
-                id: '5',
-                followed: true,
-                fullName: 'Masha',
+                id: 5,
+                name: 'Masha',
                 status: 'Hello',
-                location: {city: 'Moscow', country: 'Russia'}
+                photos: {
+                    small: null,
+                    large: null
+                },
+                followed: true
             }
         ]
 
-    const action = setUsersAC(newUsers)
+        const action = setUsersAC(newUsers)
 
-    const endState = usersReducer(startState, action);
+        const endState = usersReducer(startState, action);
 
-    expect(startState).not.toBe(endState);
-    expect(startState.users).not.toBe(endState.users);
-    expect(endState.users.length).toBe(5)
-    expect(endState.users[3].fullName).toBe('Igor')
-    expect(endState.users[4].fullName).toBe('Masha')
+        expect(startState).not.toBe(endState);
+        expect(startState.users).not.toBe(endState.users);
+        expect(endState.users.length).toBe(5)
+        expect(endState.users[3].name).toBe('Igor')
+        expect(endState.users[4].name).toBe('Masha')
+    });
 })
