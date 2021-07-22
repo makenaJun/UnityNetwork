@@ -1,7 +1,7 @@
 import {
     followAC,
     setCurrentPageAC, setTotalUsersCountAC,
-    setUsersAC,
+    setUsersAC, toggleIsFetchingAC,
     unfollowAC,
     UsersPageType,
     usersReducer,
@@ -47,7 +47,8 @@ beforeEach(() => {
         ,
         currentPage: 1,
         pageSize: 5,
-        totalUsersCount: 21
+        totalUsersCount: 21,
+        isFetching: false
     }
 })
 
@@ -129,5 +130,27 @@ describe('user reducer', () => {
         expect(startState).not.toBe(endState);
         expect(startState.totalUsersCount).toBe(21);
         expect(endState.totalUsersCount).toBe(10487);
+    });
+
+    it('is fetching should be changed for true ', () => {
+
+        const action = toggleIsFetchingAC(true);
+
+        const endState = usersReducer(startState, action);
+
+        expect(startState).not.toBe(endState);
+        expect(endState.isFetching).toBeTruthy();
+    });
+
+    it('is fetching should be changed for false ', () => {
+
+        startState.isFetching = true;
+
+        const action = toggleIsFetchingAC(false);
+
+        const endState = usersReducer(startState, action);
+
+        expect(startState).not.toBe(endState);
+        expect(endState.isFetching).toBeFalsy();
     });
 })
