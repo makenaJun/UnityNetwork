@@ -1,6 +1,3 @@
-const ADD_MESSAGE = 'ADD_MESSAGE';
-const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE_NEW_MESSAGE_TEXT';
-
 export type DialogType = {
     id: string
     name: string
@@ -39,7 +36,7 @@ const initialState = {
 const dialogsReducer = (state: DialogsPagesType = initialState, action: ActionType): DialogsPagesType => {
 
     switch (action.type) {
-        case 'ADD_MESSAGE':
+        case 'UN/DIALOGS/ADD_MESSAGE':
             const newMessage: MessageType = {
                 id: String(state.messagesData.length + 1),
                 message: state.newMessageText
@@ -49,7 +46,7 @@ const dialogsReducer = (state: DialogsPagesType = initialState, action: ActionTy
                 messagesData: [...state.messagesData, newMessage],
                 newMessageText: ''
             }
-        case 'CHANGE_NEW_MESSAGE_TEXT':
+        case 'UN/DIALOGS/CHANGE_NEW_MESSAGE_TEXT':
             return {
                 ...state,
                 newMessageText: action.payload.newMessageText
@@ -60,9 +57,9 @@ const dialogsReducer = (state: DialogsPagesType = initialState, action: ActionTy
 }
 
 
-export const addMessageAC = () => ({type: ADD_MESSAGE} as const);
+export const addMessageAC = () => ({type: 'UN/DIALOGS/ADD_MESSAGE'} as const);
 export const newMessageTextAC = (newMessageText: string) => ({
-    type: CHANGE_NEW_MESSAGE_TEXT,
+    type: 'UN/DIALOGS/CHANGE_NEW_MESSAGE_TEXT',
     payload: {newMessageText}
 } as const);
 

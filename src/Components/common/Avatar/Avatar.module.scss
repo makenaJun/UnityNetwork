@@ -1,0 +1,25 @@
+$largeAvatarSize: 120px;
+$normalAvatarSize: 70px;
+$smallAvatarSize: 30px;
+
+.avatar {
+  width: $normalAvatarSize;
+  height: $normalAvatarSize;
+  overflow: hidden;
+  border-radius: 100%;
+
+  &.small {
+    width: $smallAvatarSize;
+    height: $smallAvatarSize;
+  }
+
+  &.large {
+    width: $largeAvatarSize;
+    height: $largeAvatarSize;
+    border-radius: 0px;
+  }
+
+  & img {
+    width: 100%;
+  }
+}

@@ -1,7 +1,7 @@
 import React, {FC} from 'react'
 import {UserType} from '../../../redux/users-reducer';
 import styles from './User.module.scss'
-import noAvatar from '../../../assets/image/noavatar.jpg'
+import Avatar from '../../common/Avatar/Avatar';
 
 
 type PropsType = {
@@ -20,12 +20,8 @@ export const User: FC<PropsType> = (props) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.leftPart}>
-                <div className={styles.avatar}>
-                    <img
-                        src={user.photos.large === null ? noAvatar : user.photos.large}
-                        alt={`Avatar ${user.name}`}
-                    />
-                </div>
+                <Avatar link={`/profile/${user.id}`} alt={`Avatar ${user.name}`} urlImg={user.photos.large}
+                        size={'normal'}/>
                 <button onClick={onClickHandler}>{user.followed ? 'Unfollow' : 'Follow'}</button>
             </div>
             <div className={styles.rightPart}>

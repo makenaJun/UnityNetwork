@@ -16,25 +16,26 @@ beforeEach(() => {
         newMessageText: 'New'
     }
 })
+describe('Dialogs reducer', () => {
+    it('message should be added', () => {
+        const action = addMessageAC();
 
-test('message should be added', () => {
-    const action = addMessageAC();
+        const endState = dialogsReducer(startState, action);
 
-    const endState = dialogsReducer(startState, action);
+        expect(startState).not.toBe(endState);
+        expect(endState.messagesData.length).toBe(3);
+        expect(endState.messagesData[2].message).toBe('New');
+    })
 
-    expect(startState).not.toBe(endState);
-    expect(endState.messagesData.length).toBe(3);
-    expect(endState.messagesData[2].message).toBe('New');
-})
+    it('new message text should change', () => {
+        const testTextNewPost = 'New text'
 
-test('new message text should change', () => {
-    const testTextNewPost = 'New text'
+        const action = newMessageTextAC(testTextNewPost);
 
-    const action = newMessageTextAC(testTextNewPost);
+        const endState = dialogsReducer(startState, action);
 
-    const endState = dialogsReducer(startState, action);
-
-    expect(startState).not.toBe(endState);
-    expect(endState.messagesData.length).toBe(2);
-    expect(endState.newMessageText).toBe('New text');
+        expect(startState).not.toBe(endState);
+        expect(endState.messagesData.length).toBe(2);
+        expect(endState.newMessageText).toBe('New text');
+    })
 })
