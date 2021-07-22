@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import './App.scss';
-import {Header} from './Components/Header/Header';
 import {Footer} from './Components/Footer/Footer';
 import {Sidebar} from './Components/Sidebar/Sidebar';
 import ProfileContainer from './Components/Profile/ProfileContainer';
@@ -8,6 +7,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import UsersContainer from './Components/Users/UsersContainer';
 import DocumentTitle from 'react-document-title';
+import HeaderContainer from './Components/Header/HeaderContainer';
 
 
 const App: FC = () => {
@@ -15,7 +15,7 @@ const App: FC = () => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
-                <Header/>
+                <HeaderContainer/>
                 <div className="body-app-wrapper">
                     <Sidebar/>
                     <div className="content">

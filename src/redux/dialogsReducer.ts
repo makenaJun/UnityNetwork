@@ -7,7 +7,7 @@ export type MessageType = {
     message: string
 }
 
-export type DialogsPagesType = typeof initialState;
+export type DialogsPageStateType = typeof initialState;
 
 
 export type ActionType =
@@ -33,7 +33,7 @@ const initialState = {
     newMessageText: ''
 }
 
-const dialogsReducer = (state: DialogsPagesType = initialState, action: ActionType): DialogsPagesType => {
+const dialogsReducer = (state: DialogsPageStateType = initialState, action: ActionType): DialogsPageStateType => {
 
     switch (action.type) {
         case 'UN/DIALOGS/ADD_MESSAGE':

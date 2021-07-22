@@ -3,12 +3,12 @@ import {
     setCurrentPage, setTotalUsersCount,
     setUsers, toggleIsFetching,
     unfollow,
-    UsersPageType,
+    UsersPageStateType,
     usersReducer,
     UserType
 } from './users-reducer';
 
-let startState: UsersPageType;
+let startState: UsersPageStateType;
 
 beforeEach(() => {
     startState = {

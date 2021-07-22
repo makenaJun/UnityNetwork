@@ -1,12 +1,12 @@
 import profileReducer, {
     addPost,
     changeNewPostText,
-    ProfilePageType,
+    ProfilePageStateType,
     setUserProfile,
     UserProfileType
 } from './profileReducer';
 
-let startState: ProfilePageType;
+let startState: ProfilePageStateType;
 
 beforeEach(() => {
     startState = {

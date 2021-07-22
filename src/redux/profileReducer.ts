@@ -27,7 +27,7 @@ export type UserProfileType = {
     photos: UserPhotosType
 }
 
-export type ProfilePageType = typeof initialState;
+export type ProfilePageStateType = typeof initialState;
 
 export type ActionsType = ReturnType<typeof addPost>
     | ReturnType<typeof changeNewPostText>
@@ -43,7 +43,7 @@ const initialState = {
     profile: null as null | UserProfileType
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
+const profileReducer = (state: ProfilePageStateType = initialState, action: ActionsType): ProfilePageStateType => {
     switch (action.type) {
         case 'UN/PROFILE/ADD_POST' : {
             const newPost: PostType = {

@@ -3,10 +3,10 @@ import styles from './Dialogs.module.scss';
 import {DialogItem} from './DialogItem/DialogItem';
 import {MessageItem} from './MessageItem/MessageItem';
 import {AddMessageForm} from './AddMessageForm/AddMessageForm';
-import {DialogsPagesType} from '../../redux/dialogsReducer';
+import {DialogsPageStateType} from '../../redux/dialogsReducer';
 
 type PropsType = {
-    dialogsPage: DialogsPagesType
+    dialogsPage: DialogsPageStateType
     changeMessageText: (newText: string) => void
     sendMessage: () => void
 }

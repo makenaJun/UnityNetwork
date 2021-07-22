@@ -1,6 +1,6 @@
-import dialogsReducer, {addMessageAC, DialogsPagesType, newMessageTextAC} from './dialogsReducer';
+import dialogsReducer, {addMessageAC, DialogsPageStateType, newMessageTextAC} from './dialogsReducer';
 
-let startState: DialogsPagesType;
+let startState: DialogsPageStateType;
 
 beforeEach(() => {
     startState = {

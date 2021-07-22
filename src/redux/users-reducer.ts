@@ -9,7 +9,7 @@ export type UserType = {
     photos: UserPhotosType
     followed: boolean
 };
-export type UsersPageType = typeof initialState;
+export type UsersPageStateType = typeof initialState;
 
 export type ActionsType =
     ReturnType<typeof follow>
@@ -27,7 +27,7 @@ const initialState = {
     isFetching: false
 }
 
-export const usersReducer = (state: UsersPageType = initialState, action: ActionsType): UsersPageType => {
+export const usersReducer = (state: UsersPageStateType = initialState, action: ActionsType): UsersPageStateType => {
     const changeFollowed = (userId: number, followed: boolean) => {
         return {
             ...state,
