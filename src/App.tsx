@@ -19,7 +19,7 @@ const App: FC = () => {
                 <div className="body-app-wrapper">
                     <Sidebar/>
                     <div className="content">
-                        <Route path={'/profile'}
+                        <Route path={'/profile/:userId?'}
                                render={() => <DocumentTitle title={`Profile`} children={<ProfileContainer/>}/>}/>
                         <Route path={'/dialogs'}
                                render={() => <DocumentTitle title={'Dialogs'} children={<DialogsContainer/>}/>}/>
