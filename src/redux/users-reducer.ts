@@ -12,12 +12,12 @@ export type UserType = {
 export type UsersPageType = typeof initialState;
 
 export type ActionsType =
-    ReturnType<typeof followAC>
-    | ReturnType<typeof unfollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>
-    | ReturnType<typeof toggleIsFetchingAC>
+    ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
 
 const initialState = {
     users: [] as Array<UserType>,
@@ -72,17 +72,17 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
     }
 }
 
-export const followAC = (userId: number) => ({type: 'FOLLOW', payload: {userId}} as const);
+export const follow = (userId: number) => ({type: 'FOLLOW', payload: {userId}} as const);
 
-export const unfollowAC = (userId: number) => ({type: 'UNFOLLOW', payload: {userId}} as const);
+export const unfollow = (userId: number) => ({type: 'UNFOLLOW', payload: {userId}} as const);
 
-export const setUsersAC = (users: Array<UserType>) => ({type: 'SET_USERS', payload: {users}} as const);
+export const setUsers = (users: Array<UserType>) => ({type: 'SET_USERS', payload: {users}} as const);
 
-export const setCurrentPageAC = (currentPage: number) => ({type: 'SET_CURRENT_PAGE', payload: {currentPage}} as const);
+export const setCurrentPage = (currentPage: number) => ({type: 'SET_CURRENT_PAGE', payload: {currentPage}} as const);
 
-export const setTotalUsersCountAC = (totalCount: number) => ({
+export const setTotalUsersCount = (totalCount: number) => ({
     type: 'SET_TOTAL_USERS_COUNT',
     payload: {totalCount}
 } as const)
 
-export const toggleIsFetchingAC = (isFetching: boolean) => ({type: 'TOGGLE_IS_FETCHHING', payload:{isFetching}} as const)
+export const toggleIsFetching = (isFetching: boolean) => ({type: 'TOGGLE_IS_FETCHHING', payload: {isFetching}} as const)

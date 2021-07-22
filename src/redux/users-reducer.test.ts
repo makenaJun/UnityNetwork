@@ -1,8 +1,8 @@
 import {
-    followAC,
-    setCurrentPageAC, setTotalUsersCountAC,
-    setUsersAC, toggleIsFetchingAC,
-    unfollowAC,
+    follow,
+    setCurrentPage, setTotalUsersCount,
+    setUsers, toggleIsFetching,
+    unfollow,
     UsersPageType,
     usersReducer,
     UserType
@@ -54,7 +54,7 @@ beforeEach(() => {
 
 describe('user reducer', () => {
     it('user should be following', () => {
-        const action = followAC(2)
+        const action = follow(2)
 
         const endState = usersReducer(startState, action);
 
@@ -64,7 +64,7 @@ describe('user reducer', () => {
     });
 
     it('user should be unfollowing', () => {
-        const action = unfollowAC(3)
+        const action = unfollow(3)
 
         const endState = usersReducer(startState, action);
 
@@ -97,7 +97,7 @@ describe('user reducer', () => {
             }
         ]
 
-        const action = setUsersAC(newUsers)
+        const action = setUsers(newUsers)
 
         const endState = usersReducer(startState, action);
 
@@ -111,7 +111,7 @@ describe('user reducer', () => {
     it('current page should be changed', () => {
         const nextCurrentPage = 2;
 
-        const action = setCurrentPageAC(nextCurrentPage);
+        const action = setCurrentPage(nextCurrentPage);
 
         const endState = usersReducer(startState, action);
 
@@ -123,7 +123,7 @@ describe('user reducer', () => {
     it('total count users should be installed', () => {
         const totalUsersCount = 10487;
 
-        const action = setTotalUsersCountAC(totalUsersCount);
+        const action = setTotalUsersCount(totalUsersCount);
 
         const endState = usersReducer(startState, action);
 
@@ -134,7 +134,7 @@ describe('user reducer', () => {
 
     it('is fetching should be changed for true ', () => {
 
-        const action = toggleIsFetchingAC(true);
+        const action = toggleIsFetching(true);
 
         const endState = usersReducer(startState, action);
 
@@ -146,7 +146,7 @@ describe('user reducer', () => {
 
         startState.isFetching = true;
 
-        const action = toggleIsFetchingAC(false);
+        const action = toggleIsFetching(false);
 
         const endState = usersReducer(startState, action);
 
