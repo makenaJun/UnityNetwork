@@ -2,7 +2,7 @@ import React, {FC} from 'react'
 import {UserType} from '../../../redux/users-reducer';
 import styles from './User.module.scss'
 import Avatar from '../../common/Avatar/Avatar';
-import axios from 'axios';
+import {usersApi} from '../../../api/api';
 
 
 type PropsType = {
@@ -16,27 +16,16 @@ export const User: FC<PropsType> = (props) => {
 
     const onClickHandler = () => {
         if (user.followed) {
-            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
-                {
-                    headers: {
-                        ['API-KEY']: '8fe373c6-ac19-4fc4-baf6-f60952b5767c'
-                    },
-                    withCredentials: true
-                })
-                .then(res => {
-                    if (res.data.resultCode === 0) {
+            usersApi.unfollow(user.id)
+                .then(data => {
+                    if (data.resultCode === 0) {
                         unfollow(user.id);
                     }
                 })
         } else {
-            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
-                headers: {
-                    ['API-KEY']: '8fe373c6-ac19-4fc4-baf6-f60952b5767c'
-                },
-                withCredentials: true
-            })
-                .then(res => {
-                    if (res.data.resultCode === 0) {
+            usersApi.follow(user.id)
+                .then(data => {
+                    if (data.resultCode === 0) {
                         follow(user.id);
                     }
                 })
