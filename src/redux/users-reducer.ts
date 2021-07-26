@@ -18,13 +18,15 @@ export type ActionsType =
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof toggleFollowingInProgress>
 
 const initialState = {
     users: [] as Array<UserType>,
     pageSize: 5,
     currentPage: 1,
     totalUsersCount: 0,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: [] as Array<number>,
 }
 
 export const usersReducer = (state: UsersPageStateType = initialState, action: ActionsType): UsersPageStateType => {
@@ -42,28 +44,20 @@ export const usersReducer = (state: UsersPageStateType = initialState, action: A
         case 'UN/USERS/UNFOLLOW': {
             return changeFollowed(action.payload.userId, false);
         }
-        case 'UN/USERS/SET_USERS': {
-            return {
-                ...state,
-                users: action.payload.users
-            }
-        }
-        case 'UN/USERS/SET_CURRENT_PAGE': {
-            return {
-                ...state,
-                currentPage: action.payload.currentPage
-            }
-        }
-        case 'UN/USERS/SET_TOTAL_USERS_COUNT': {
-            return {
-                ...state,
-                totalUsersCount: action.payload.totalCount
-            }
-        }
+        case 'UN/USERS/SET_USERS':
+        case 'UN/USERS/SET_CURRENT_PAGE':
+        case 'UN/USERS/SET_TOTAL_USERS_COUNT':
         case 'UN/USERS/TOGGLE_IS_FETCHHING': {
             return {
                 ...state,
-                isFetching: action.payload.isFetching
+                ...action.payload
+            }
+        }
+        case 'UN/USERS/TOGGLE_FOLLOWING_IS_PROGRESS': {
+            return {
+                ...state,
+                followingInProgress: action.payload.isFetching ? [...state.followingInProgress, action.payload.userId] :
+                    state.followingInProgress.filter(u => u !== action.payload.userId)
             }
         }
         default: {
@@ -83,12 +77,20 @@ export const setCurrentPage = (currentPage: number) => ({
     payload: {currentPage}
 } as const);
 
-export const setTotalUsersCount = (totalCount: number) => ({
+export const setTotalUsersCount = (totalUsersCount: number) => ({
     type: 'UN/USERS/SET_TOTAL_USERS_COUNT',
-    payload: {totalCount}
+    payload: {totalUsersCount}
 } as const)
 
 export const toggleIsFetching = (isFetching: boolean) => ({
     type: 'UN/USERS/TOGGLE_IS_FETCHHING',
     payload: {isFetching}
+} as const)
+
+export const toggleFollowingInProgress = (userId: number, isFetching: boolean) => ({
+    type: 'UN/USERS/TOGGLE_FOLLOWING_IS_PROGRESS',
+    payload: {
+        userId,
+        isFetching,
+    }
 } as const)

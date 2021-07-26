@@ -1,7 +1,7 @@
 import {
     follow,
     setCurrentPage, setTotalUsersCount,
-    setUsers, toggleIsFetching,
+    setUsers, toggleFollowingInProgress, toggleIsFetching,
     unfollow,
     UsersPageStateType,
     usersReducer,
@@ -48,7 +48,8 @@ beforeEach(() => {
         currentPage: 1,
         pageSize: 5,
         totalUsersCount: 21,
-        isFetching: false
+        isFetching: false,
+        followingInProgress: [],
     }
 })
 
@@ -152,5 +153,33 @@ describe('user reducer', () => {
 
         expect(startState).not.toBe(endState);
         expect(endState.isFetching).toBeFalsy();
+    });
+
+    it('followingIsProgress should be non-empty', () => {
+        const id = 5;
+
+        const action = toggleFollowingInProgress(id, true);
+
+        const endState = usersReducer(startState, action);
+
+        expect(startState.followingInProgress).not.toBe(endState);
+        expect(endState.followingInProgress.length).toBe(1);
+        expect(endState.followingInProgress[0]).toBe(5);
+    });
+
+    it('followingIsProgress should be empty', () => {
+
+        const idForRemoving = 5;
+        const kitId = [2, 10, 57, 1005];
+
+        startState.followingInProgress = [...kitId, idForRemoving];
+
+        const action = toggleFollowingInProgress(idForRemoving, false);
+
+        const endState = usersReducer(startState, action);
+
+        expect(startState.followingInProgress).not.toBe(endState);
+        expect(startState.followingInProgress.length).toBe(5);
+        expect(endState.followingInProgress.length).toBe(4);
     });
 })
