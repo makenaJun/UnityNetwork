@@ -1,3 +1,6 @@
+import {Dispatch} from 'redux';
+import {ResultsCode, usersApi} from '../api/api';
+
 export type UserPhotosType = {
     small: string | null
     large: string | null
@@ -12,8 +15,8 @@ export type UserType = {
 export type UsersPageStateType = typeof initialState;
 
 export type ActionsType =
-    ReturnType<typeof follow>
-    | ReturnType<typeof unfollow>
+    ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
@@ -66,9 +69,9 @@ export const usersReducer = (state: UsersPageStateType = initialState, action: A
     }
 }
 
-export const follow = (userId: number) => ({type: 'UN/USERS/FOLLOW', payload: {userId}} as const);
+export const followSuccess = (userId: number) => ({type: 'UN/USERS/FOLLOW', payload: {userId}} as const);
 
-export const unfollow = (userId: number) => ({type: 'UN/USERS/UNFOLLOW', payload: {userId}} as const);
+export const unfollowSuccess = (userId: number) => ({type: 'UN/USERS/UNFOLLOW', payload: {userId}} as const);
 
 export const setUsers = (users: Array<UserType>) => ({type: 'UN/USERS/SET_USERS', payload: {users}} as const);
 
@@ -94,3 +97,25 @@ export const toggleFollowingInProgress = (userId: number, isFetching: boolean) =
         isFetching,
     }
 } as const)
+
+export const getUsers = (currentPage: number, pageSize: number) => async (dispatch: Dispatch) => {
+    dispatch(toggleIsFetching(true));
+
+    const data = await usersApi.getUsers(currentPage, pageSize);
+    dispatch(setCurrentPage(currentPage));
+
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount));
+}
+
+export const followUser = (userId: number, follow: boolean) => async (dispatch: Dispatch) => {
+    dispatch(toggleFollowingInProgress(userId, true));
+    const data = await usersApi[follow ? 'follow' : 'unfollow'](userId);
+
+    if (data.resultCode === ResultsCode.SUCCESS) {
+        dispatch(follow ? followSuccess(userId) : unfollowSuccess(userId));
+    }
+
+    dispatch(toggleFollowingInProgress(userId, false));
+}

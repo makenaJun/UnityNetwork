@@ -1,8 +1,9 @@
-import {combineReducers, createStore} from 'redux';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
 import profileReducer, {ActionsType, ProfilePageStateType} from './profileReducer';
 import dialogsReducer, {ActionType, DialogsPageStateType} from './dialogsReducer';
 import {UsersPageStateType, usersReducer} from './users-reducer';
 import authReducer, {authStateType} from './auth-reducer';
+import thunkMiddleware from 'redux-thunk';
 
 export type StateType = {
     profilePage: ProfilePageStateType
@@ -22,6 +23,7 @@ type RootStateType = typeof rootReducer;
 export type AppStateType = ReturnType<RootStateType>
 export type ActionsTypes = ActionType | ActionsType
 
-const store = createStore(rootReducer);
+
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 export default store;

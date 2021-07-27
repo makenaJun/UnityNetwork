@@ -19,3 +19,7 @@ export const usersApi = {
         return instance.delete(`/follow/${userId}`).then(res => res.data);
     }
 }
+
+export enum ResultsCode {
+    SUCCESS = 0,
+}

@@ -10,22 +10,15 @@ type PropsType = {
     totalUserCount: number
     currentPage: number
     followingIsProgress: Array<number>
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    setUsers: (users: Array<UserType>) => void
-    setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalCount: number) => void
     onPageChangeHandler: (pageNumber: number) => void
-    toggleFollowingInProgress: (userId: number, isFetching: boolean) => void
+    followUser: (userId: number, follow: boolean) => void
 }
 
 export const Users: FC<PropsType> = (props) => {
     const usersElements = props.users.map(u => <User key={u.id}
                                                      user={u}
-                                                     follow={props.follow}
-                                                     unfollow={props.unfollow}
                                                      followingIsProgress={props.followingIsProgress}
-                                                     toggleFollowingInProgress={props.toggleFollowingInProgress}
+                                                     followUser={props.followUser}
     />)
     return (
         <div>

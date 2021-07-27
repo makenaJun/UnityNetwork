@@ -1,8 +1,7 @@
 import {
-    follow,
+    followSuccess,
     setCurrentPage, setTotalUsersCount,
-    setUsers, toggleFollowingInProgress, toggleIsFetching,
-    unfollow,
+    setUsers, toggleFollowingInProgress, toggleIsFetching, unfollowSuccess,
     UsersPageStateType,
     usersReducer,
     UserType
@@ -55,7 +54,7 @@ beforeEach(() => {
 
 describe('user reducer', () => {
     it('user should be following', () => {
-        const action = follow(2)
+        const action = followSuccess(2)
 
         const endState = usersReducer(startState, action);
 
@@ -65,7 +64,7 @@ describe('user reducer', () => {
     });
 
     it('user should be unfollowing', () => {
-        const action = unfollow(3)
+        const action = unfollowSuccess(3)
 
         const endState = usersReducer(startState, action);
 
