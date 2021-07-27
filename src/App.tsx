@@ -8,6 +8,7 @@ import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import UsersContainer from './Components/Users/UsersContainer';
 import DocumentTitle from 'react-document-title';
 import HeaderContainer from './Components/Header/HeaderContainer';
+import {Login} from './Components/Login/Login';
 
 
 const App: FC = () => {
@@ -25,6 +26,8 @@ const App: FC = () => {
                                render={() => <DocumentTitle title={'Dialogs'} children={<DialogsContainer/>}/>}/>
                         <Route path={'/developers'}
                                render={() => <DocumentTitle title={'Developers'} children={<UsersContainer/>}/>}/>
+                        <Route path={'/login'}
+                               render={() => <DocumentTitle title={'Login'} children={<Login/>}/>}/>
                     </div>
                 </div>
                 <Footer/>
