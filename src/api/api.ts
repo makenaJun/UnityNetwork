@@ -21,6 +21,9 @@ export const usersApi = {
     getProfile(userId: number) {
         return instance.get(`/profile/${userId}`).then(res => res.data);
     },
+    getProfileStatus(userId: number) {
+        return instance.get(`/profile/status/${userId}`).then(res => res.data);
+    },
 };
 
 export const authApi = {
