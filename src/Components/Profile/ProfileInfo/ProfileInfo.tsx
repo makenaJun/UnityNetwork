@@ -5,11 +5,13 @@ import Avatar from '../../common/Avatar/Avatar';
 import {ProfileStatus} from './ProfileStatus/ProfileStatus';
 
 type PropsType = {
-    profile: UserProfileType | null
-}
+    profile: UserProfileType | null,
+    status: null | string,
+    updateUserStatus: (status: string) => void,
+};
 
 export const ProfileInfo: FC<PropsType> = (props) => {
-    const {profile} = props;
+    const {profile, status, updateUserStatus} = props;
     if (!profile) {
         return <Preloader loaderVisible={true}/>
     }
@@ -21,7 +23,10 @@ export const ProfileInfo: FC<PropsType> = (props) => {
 
             <h3>Full Name: {profile.fullName}</h3>
 
-            <div><ProfileStatus status={'Hello'}/></div>
+            <div><ProfileStatus status={status}
+                                updateUserStatus={updateUserStatus}
+            />
+            </div>
 
 
             <div>About me: {profile.aboutMe}</div>

@@ -6,11 +6,12 @@ export type UserPhotosType = {
     large: string | null
 }
 export type UserType = {
-    id: number
-    name: string
-    status: string
-    photos: UserPhotosType
-    followed: boolean
+    id: number,
+    name: string,
+    uniqueUrlName: null | string,
+    status: null | string,
+    photos: UserPhotosType,
+    followed: boolean,
 };
 export type UsersPageStateType = typeof initialState;
 
@@ -105,7 +106,12 @@ export const getUsers = (currentPage: number, pageSize: number) => async (dispat
     dispatch(setCurrentPage(currentPage));
 
     dispatch(toggleIsFetching(false));
-    dispatch(setUsers(data.items));
+    if (data.items === null) {
+        dispatch(setUsers([]));
+    } else {
+        dispatch(setUsers(data.items));
+    }
+    ;
     dispatch(setTotalUsersCount(data.totalCount));
 }
 

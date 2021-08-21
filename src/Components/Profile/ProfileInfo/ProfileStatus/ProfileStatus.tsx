@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from 'react';
 
 type PropsType = {
-    status: string,
+    status: string | null,
+    updateUserStatus: (status: string) => void,
 };
 type StateType = {
     editMode: boolean,
@@ -10,15 +11,20 @@ type StateType = {
 
 
 export class ProfileStatus extends React.Component<PropsType, StateType> {
-    state = {
-        editMode: false,
-        localStatus: 'Test',
-    }
-
     constructor(props: any) {
         super(props);
-        this.toggleEditMode = this.toggleEditMode.bind(this);
+        this.state = {
+            editMode: false,
+            localStatus: '',
+        };
+        this.onEditMode = this.onEditMode.bind(this);
+        this.offEditMode = this.offEditMode.bind(this);
         this.onChangeHandler = this.onChangeHandler.bind(this);
+    }
+
+    componentDidMount() {
+        const value = this.props.status === null ? '' : this.props.status;
+        this.setState({localStatus: value});
     }
 
     onChangeHandler(e: ChangeEvent<HTMLInputElement>) {
@@ -26,8 +32,15 @@ export class ProfileStatus extends React.Component<PropsType, StateType> {
         this.setState({localStatus: value});
     }
 
-    toggleEditMode() {
-        this.setState({editMode: !this.state.editMode});
+    onEditMode() {
+        this.setState({editMode: true});
+    }
+
+    offEditMode() {
+        if(this.state.localStatus !== this.props.status){
+            this.props.updateUserStatus(this.state.localStatus);
+        }
+        this.setState({editMode: false});
     }
 
 
@@ -38,8 +51,8 @@ export class ProfileStatus extends React.Component<PropsType, StateType> {
             <>
                 {editMode ?
                     <input type="text" value={localStatus} onChange={this.onChangeHandler}
-                           onBlur={this.toggleEditMode} autoFocus/>
-                    : <span onDoubleClick={this.toggleEditMode}>{localStatus}</span>
+                           onBlur={this.offEditMode} autoFocus/>
+                    : <span onDoubleClick={this.onEditMode}>{status || 'Status not installed'}</span>
                 }
 
             </>

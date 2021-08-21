@@ -4,14 +4,19 @@ import MyPostsContainer from './MyPosts/MypostsContainer';
 import {UserProfileType} from '../../redux/profileReducer';
 
 type PropsType = {
-    profile: UserProfileType | null
-}
+    profile: UserProfileType | null,
+    status: null | string,
+    updateUserStatus: (status: string) => void,
+};
 
 export const Profile: FC<PropsType> = (props) => {
-    const {profile} =props;
+    const {profile, status, updateUserStatus} = props;
     return (
         <div>
-            <ProfileInfo profile={profile}/>
+            <ProfileInfo profile={profile}
+                         status={status}
+                         updateUserStatus={updateUserStatus}
+            />
             <MyPostsContainer/>
         </div>
     )
