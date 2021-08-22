@@ -2,7 +2,7 @@ import profileReducer, {
     addPost,
     changeNewPostText,
     ProfilePageStateType,
-    setUserProfile,
+    setUserProfile, setUserStatus,
     UserProfileType
 } from './profileReducer';
 
@@ -36,11 +36,13 @@ beforeEach(() => {
                 small: null,
                 large: null
             }
-        }
+        },
+        status: '',
     }
-})
+});
+
 describe('Profile reducer', () => {
-    it(' post should be added', () => {
+    it('post should be added', () => {
         const action = addPost();
 
         const endState = profileReducer(startState, action);
@@ -49,9 +51,9 @@ describe('Profile reducer', () => {
         expect(endState.postsData.length).toBe(4);
         expect(endState.postsData[3].message).toBe('New Message');
         expect(endState.postsData[3].likesCount).toBe(0);
-    })
+    });
 
-    it('new post text should change', () => {
+    it('new post text should changed', () => {
         const testTextNewPost = 'New text'
 
         const action = changeNewPostText(testTextNewPost);
@@ -61,7 +63,7 @@ describe('Profile reducer', () => {
         expect(startState).not.toBe(endState);
         expect(endState.postsData.length).toBe(3);
         expect(endState.newPostText).toBe('New text');
-    })
+    });
 
     it('user profile should be set', () => {
         const testProfile: UserProfileType = {
@@ -98,5 +100,15 @@ describe('Profile reducer', () => {
         expect(endState.profile.fullName).toBe('Igor Mao');
         expect(endState.profile.contacts.website).toBe('igor.ru');
 
-    })
+    });
+
+    it('user status should be changed', () => {
+        const TestStatus = 'Hello World!';
+        const action = setUserStatus(TestStatus);
+
+        const endState = profileReducer(startState, action);
+
+        expect(startState).not.toBe(endState);
+        expect(endState.status).toBe(TestStatus);
+    });
 })

@@ -1,5 +1,6 @@
 import {Dispatch} from 'redux';
-import {ResultsCode, usersApi} from '../api/api';
+import {ResultsCode} from '../api/api';
+import {usersApi} from '../api/users-api';
 
 export type UserPhotosType = {
     small: string | null
