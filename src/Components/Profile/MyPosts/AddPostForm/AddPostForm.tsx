@@ -1,27 +1,34 @@
-import React, {ChangeEvent, FC} from 'react';
+import React, {FC} from 'react';
+import {useFormik} from 'formik';
 
 type PropsType = {
-    newPostText: string
-    changeNewPostText: (newText: string) => void
-    addPost: () => void
-}
+    onSubmit: (formData: PostFormData) => void,
+};
+
+export type PostFormData = {
+    newPostText: string,
+};
 
 export const AddPostForm: FC<PropsType> = (props) => {
-    const {newPostText, changeNewPostText, addPost} = props;
-
-    const postTextChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        const NewText = event.currentTarget.value;
-        changeNewPostText(NewText)
-    };
-    const addPostHandler = () => {
-        addPost()
-    };
-
+    const formik = useFormik({
+        initialValues: {
+            newPostText: '',
+        },
+        onSubmit: values => {
+            props.onSubmit(values)
+            formik.resetForm()
+        },
+    });
     return (
-        <div>
-            <textarea value={newPostText} onChange={postTextChangeHandler}/>
-            <button onClick={addPostHandler}>Add post
-            </button>
-        </div>
-    )
+        <form onSubmit={formik.handleSubmit}>
+            <textarea
+                id="newPostText"
+                name="newPostText"
+                onChange={formik.handleChange}
+                value={formik.values.newPostText}
+            />
+
+            <button type="submit">Submit</button>
+        </form>
+    );
 }

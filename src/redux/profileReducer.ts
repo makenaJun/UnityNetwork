@@ -34,7 +34,6 @@ export type UserProfileType = {
 export type ProfilePageStateType = typeof initialState;
 
 export type ActionsType = ReturnType<typeof addPost>
-    | ReturnType<typeof changeNewPostText>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
 
@@ -42,9 +41,8 @@ const initialState = {
     postsData: [
         {id: '1', message: 'Hi, how are you?', likesCount: 15},
         {id: '2', message: '\'It\'s my first post', likesCount: 21},
-        {id: '3', message: 'Hello World!', likesCount: 27}
+        {id: '3', message: 'Hello World!', likesCount: 27},
     ] as Array<PostType>,
-    newPostText: '',
     profile: null as null | UserProfileType,
     status: '' as null | string,
 };
@@ -54,19 +52,12 @@ const profileReducer = (state: ProfilePageStateType = initialState, action: Acti
         case 'UN/PROFILE/ADD_POST' : {
             const newPost: PostType = {
                 id: String(state.postsData.length + 1),
-                message: state.newPostText,
-                likesCount: 0
+                message: action.payload.newPostText,
+                likesCount: 0,
             };
             return {
                 ...state,
-                postsData: [...state.postsData, newPost],
-                newPostText: ''
-            };
-        }
-        case 'UN/PROFILE/CHANGE_NEW_POST_TEXT': {
-            return {
-                ...state,
-                newPostText: action.payload.newPostText
+                postsData: [newPost, ...state.postsData]
             };
         }
         case 'UN/PROFILE/SET_USER_PROFILE': {
@@ -87,12 +78,7 @@ const profileReducer = (state: ProfilePageStateType = initialState, action: Acti
 }
 
 
-export const addPost = () => ({type: 'UN/PROFILE/ADD_POST'} as const);
-
-export const changeNewPostText = (newPostText: string) => ({
-    type: 'UN/PROFILE/CHANGE_NEW_POST_TEXT',
-    payload: {newPostText}
-} as const);
+export const addPost = (newPostText: string) => ({type: 'UN/PROFILE/ADD_POST', payload: {newPostText}} as const);
 
 export const setUserProfile = (profile: UserProfileType) => ({
     type: 'UN/PROFILE/SET_USER_PROFILE',

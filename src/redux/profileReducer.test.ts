@@ -1,8 +1,8 @@
 import profileReducer, {
     addPost,
-    changeNewPostText,
     ProfilePageStateType,
-    setUserProfile, setUserStatus,
+    setUserProfile,
+    setUserStatus,
     UserProfileType
 } from './profileReducer';
 
@@ -15,7 +15,6 @@ beforeEach(() => {
             {id: '2', message: '\'It\'s my first post', likesCount: 21},
             {id: '3', message: 'Hello World!', likesCount: 27}
         ],
-        newPostText: 'New Message',
         profile: {
             userId: 1,
             fullName: 'Egor',
@@ -43,26 +42,15 @@ beforeEach(() => {
 
 describe('Profile reducer', () => {
     it('post should be added', () => {
-        const action = addPost();
+        const message = 'New Message';
+        const action = addPost(message);
 
         const endState = profileReducer(startState, action);
 
         expect(startState).not.toBe(endState);
         expect(endState.postsData.length).toBe(4);
-        expect(endState.postsData[3].message).toBe('New Message');
-        expect(endState.postsData[3].likesCount).toBe(0);
-    });
-
-    it('new post text should changed', () => {
-        const testTextNewPost = 'New text'
-
-        const action = changeNewPostText(testTextNewPost);
-
-        const endState = profileReducer(startState, action);
-
-        expect(startState).not.toBe(endState);
-        expect(endState.postsData.length).toBe(3);
-        expect(endState.newPostText).toBe('New text');
+        expect(endState.postsData[0].message).toBe(message);
+        expect(endState.postsData[0].likesCount).toBe(0);
     });
 
     it('user profile should be set', () => {
@@ -93,7 +81,7 @@ describe('Profile reducer', () => {
         const endState = profileReducer(startState, action);
 
         if (!endState.profile) {
-            throw new Error('Profile is not set')
+            throw new Error('Profile is not set');
         }
         expect(startState).not.toBe(endState);
         expect(endState.profile.userId).toBe(5);
@@ -111,4 +99,4 @@ describe('Profile reducer', () => {
         expect(startState).not.toBe(endState);
         expect(endState.status).toBe(TestStatus);
     });
-})
+});

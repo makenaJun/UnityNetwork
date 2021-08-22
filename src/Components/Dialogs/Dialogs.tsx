@@ -2,18 +2,22 @@ import React, {FC} from 'react';
 import styles from './Dialogs.module.scss';
 import {DialogItem} from './DialogItem/DialogItem';
 import {MessageItem} from './MessageItem/MessageItem';
-import {AddMessageForm} from './AddMessageForm/AddMessageForm';
+import {AddMessageForm, MessageFormDataType} from './AddMessageForm/AddMessageForm';
 import {DialogsPageStateType} from '../../redux/dialogsReducer';
 
 type PropsType = {
-    dialogsPage: DialogsPageStateType
-    changeMessageText: (newText: string) => void
-    sendMessage: () => void
-}
+    dialogsPage: DialogsPageStateType,
+    sendMessage: (newMessageText: string) => void,
+};
 
-export const  Dialogs: FC<PropsType> = (props) => {
-    const {changeMessageText, sendMessage} = props;
-    const {dialogsData, messagesData, newMessageText} = props.dialogsPage;
+export const Dialogs: FC<PropsType> = (props) => {
+    const {sendMessage} = props;
+    const {dialogsData, messagesData} = props.dialogsPage;
+
+    const onSubmit = (formData: MessageFormDataType) => {
+        const {newMessageText} = formData;
+        sendMessage(newMessageText);
+    };
 
     return (
         <div>
@@ -25,7 +29,8 @@ export const  Dialogs: FC<PropsType> = (props) => {
                     {messagesData.map(message => (<MessageItem key={message.id} message={message.message}/>))}
                 </div>
             </div>
-            <AddMessageForm changeMessageText={changeMessageText} sendMessage={sendMessage} newMessageText={newMessageText}/>
+            <AddMessageForm onSubmit={onSubmit}
+            />
         </div>
     )
-}
+};

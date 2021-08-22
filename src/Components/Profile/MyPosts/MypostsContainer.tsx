@@ -1,35 +1,32 @@
 import React, {FC} from 'react';
-import {addPost, changeNewPostText, PostType} from '../../../redux/profileReducer';
+import {addPost, PostType} from '../../../redux/profileReducer';
 import {MyPosts} from './Myposts';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../../redux/store';
 
 type MapStateToPropsType = {
-    postsData: Array<PostType>
-    newPostText: string
+    postsData: Array<PostType>,
 }
 type MapDispatchToPropsType = {
-    addPost: () => void
-    changeNewPostText: (newText: string) => void
+    addPost: (newPostText: string) => void,
 }
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType
 
 export const MyPostsContainer: FC<PropsType> = (props) => {
-    const {postsData, newPostText, addPost, changeNewPostText} = props;
+    const {postsData, addPost} = props;
 
     return (
-        <MyPosts postsData={postsData} addPost={addPost} changeNewPostText={changeNewPostText}
-                 newPostText={newPostText}/>
+        <MyPosts postsData={postsData} addPost={addPost}
+        />
     )
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         postsData: state.profilePage.postsData,
-        newPostText: state.profilePage.newPostText
     }
 }
 
 export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps,
-    {changeNewPostText, addPost})(MyPostsContainer);
+    {addPost})(MyPostsContainer);

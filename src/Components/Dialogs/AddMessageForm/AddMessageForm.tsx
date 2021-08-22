@@ -1,34 +1,44 @@
-import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
-import styles from './AddMessageForm.module.scss'
+import React, {FC, KeyboardEvent} from 'react';
+import styles from './AddMessageForm.module.scss';
+import {useFormik} from 'formik';
+
+export type MessageFormDataType = {
+    newMessageText: string,
+};
 
 type PropsType = {
-    newMessageText: string
-    changeMessageText: (newText: string) => void
-    sendMessage: () => void
-}
+    onSubmit: (formData: MessageFormDataType) => void,
+};
 
 export const AddMessageForm: FC<PropsType> = (props) => {
-    const {newMessageText, changeMessageText, sendMessage} = props;
-
-    const changeMessageTextHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        const newMessageText = event.currentTarget.value;
-        changeMessageText(newMessageText);
-    };
-    const sendMessageHandler = () => {
-        sendMessage()
-    };
-    const ctrlEnterSendMessageHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.key === 'Enter' && event.ctrlKey) {
-            sendMessageHandler()
+    const ctrlEnterSendMessageHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter' && e.ctrlKey) {
+            formik.handleSubmit();
         }
     };
 
+    const formik = useFormik({
+        initialValues: {
+            newMessageText: '',
+        },
+        onSubmit: values => {
+            props.onSubmit(values);
+            formik.resetForm();
+        },
+    });
     return (
-        <div className={styles.wrapper}>
-            <textarea className={styles.entryField} onChange={changeMessageTextHandler}
-                      value={newMessageText} placeholder={'Enter your message'}
-                      onKeyDown={ctrlEnterSendMessageHandler}/>
-            <button className={styles.button} onClick={sendMessageHandler}>Send</button>
-        </div>
-    )
-}
+        <form onSubmit={formik.handleSubmit} className={styles.wrapper}>
+            <textarea
+                className={styles.entryField}
+                id="newMessageText"
+                name="newMessageText"
+                placeholder={'Enter your message'}
+                onChange={formik.handleChange}
+                value={formik.values.newMessageText}
+                onKeyDown={ctrlEnterSendMessageHandler}
+            />
+
+            <button className={styles.button} type="submit">Send</button>
+        </form>
+    );
+};
