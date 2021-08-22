@@ -22,9 +22,13 @@ export class ProfileStatus extends React.Component<PropsType, StateType> {
         this.onChangeHandler = this.onChangeHandler.bind(this);
     }
 
-    componentDidMount() {
-        const value = this.props.status === null ? '' : this.props.status;
-        this.setState({localStatus: value});
+    //TODO control syncing a status
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<StateType>) {
+        if (prevProps.status !== this.props.status && this.props.status !== this.state.localStatus) {
+            const value = this.props.status === null ? '' : this.props.status;
+            this.setState({localStatus: value});
+        }
     }
 
     onChangeHandler(e: ChangeEvent<HTMLInputElement>) {
@@ -32,12 +36,13 @@ export class ProfileStatus extends React.Component<PropsType, StateType> {
         this.setState({localStatus: value});
     }
 
+
     onEditMode() {
         this.setState({editMode: true});
     }
 
     offEditMode() {
-        if(this.state.localStatus !== this.props.status){
+        if (this.state.localStatus !== this.props.status) {
             this.props.updateUserStatus(this.state.localStatus);
         }
         this.setState({editMode: false});
