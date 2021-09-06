@@ -8,6 +8,7 @@ import {withAuthRedirect} from '../../hoc/withAuthRouter';
 
 type MapStateToPropsType = {
     dialogsPage: DialogsPageStateType,
+    login: string | null,
 };
 type MapDispatchToPropsType = {
     addMessage: (newMessageText: string) => void,
@@ -15,10 +16,10 @@ type MapDispatchToPropsType = {
 type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 const DialogsContainer: FC<PropsType> = (props) => {
-    const {dialogsPage, addMessage} = props;
+    const {dialogsPage, addMessage, login} = props;
 
     return (
-        <Dialogs dialogsPage={dialogsPage} sendMessage={addMessage}/>
+        <Dialogs dialogsPage={dialogsPage} sendMessage={addMessage} login={login}/>
     )
 }
 
@@ -26,6 +27,7 @@ const DialogsContainer: FC<PropsType> = (props) => {
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage,
+        login: state.auth.login,
     }
 }
 

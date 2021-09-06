@@ -8,10 +8,11 @@ import {DialogsPageStateType} from '../../redux/dialogsReducer';
 type PropsType = {
     dialogsPage: DialogsPageStateType,
     sendMessage: (newMessageText: string) => void,
+    login: string | null,
 };
 
 export const Dialogs: FC<PropsType> = (props) => {
-    const {sendMessage} = props;
+    const {sendMessage, login} = props;
     const {dialogsData, messagesData} = props.dialogsPage;
 
     const onSubmit = (formData: MessageFormDataType) => {
@@ -26,7 +27,7 @@ export const Dialogs: FC<PropsType> = (props) => {
                     {dialogsData.map(user => <DialogItem key={user.id} userId={user.id} userName={user.name}/>)}
                 </div>
                 <div className={styles.messagesItem}>
-                    {messagesData.map(message => (<MessageItem key={message.id} message={message.message}/>))}
+                    {messagesData.map(message => (<MessageItem key={message.id} message={message.message} login={login}/>))}
                 </div>
             </div>
             <AddMessageForm onSubmit={onSubmit}
